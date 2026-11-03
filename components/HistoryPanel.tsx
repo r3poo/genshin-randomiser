@@ -74,23 +74,25 @@ export function HistoryPanel() {
                       <p className="mb-2 truncate text-xs font-medium text-soft">
                         {team.teamName}
                       </p>
-                      <div className="flex flex-wrap gap-2">
-                        {characters.length === 0 ? (
-                          <p className="text-xs text-muted">No characters remain from this draw.</p>
-                        ) : (
-                          characters.map((character) => (
+                      {characters.length === 0 ? (
+                        <p className="text-xs text-muted">No characters remain from this draw.</p>
+                      ) : (
+                        // Same four-column layout as the live team cards, so a recorded draw reads
+                        // at the same scale as the one on the Teams tab.
+                        <div className="grid grid-cols-4 gap-1.5">
+                          {characters.map((character) => (
                             <div
                               key={character.id}
-                              className="flex w-14 flex-col items-center gap-1"
+                              className="flex min-w-0 flex-col items-center gap-1"
                             >
-                              <Portrait character={character} size="sm" />
+                              <Portrait character={character} size="fill" />
                               <span className="w-full truncate text-center text-[10px] text-muted">
                                 {character.name}
                               </span>
                             </div>
-                          ))
-                        )}
-                      </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   );
                 })}

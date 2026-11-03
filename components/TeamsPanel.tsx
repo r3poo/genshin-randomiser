@@ -23,20 +23,30 @@ import { Portrait } from "./Portrait";
 /**
  * Fingerprint of everything a draw depends on — deliberately excluding pool and team *names*.
  * Renaming is cosmetic, so it must not discard the result the user is looking at.
+ *
+ * The uniqueness setting is also excluded: flipping it does not change which characters a draw
+ * was allowed to pick, so it must not blank the teams on screen.
  */
 function configSignature(
   pools: { id: string; memberIds: string[] }[],
   teams: { id: string; size: number; poolIds: string[] }[],
-  settings: { uniqueAcrossTeams: boolean },
 ): string {
   return JSON.stringify({
     pools: pools.map((pool) => [pool.id, pool.memberIds]),
     teams: teams.map((team) => [team.id, team.size, team.poolIds]),
-    unique: settings.uniqueAcrossTeams,
   });
 }
 
-export function TeamsPanel() {
+/** The most recent draw, kept above the tab switcher so changing tabs does not discard it. */
+export type Draw = { signature: string; teams: GeneratedTeam[] };
+
+export function TeamsPanel({
+  draw,
+  onDraw,
+}: {
+  draw: Draw | null;
+  onDraw: (draw: Draw) => void;
+}) {
   const { state, dispatch } = useStore();
   const { pools, teams, settings } = state;
 
@@ -52,18 +62,12 @@ export function TeamsPanel() {
   }
 
   const [errors, setErrors] = useState<string[]>([]);
-  const [generated, setGenerated] = useState<{ signature: string; teams: GeneratedTeam[] } | null>(
-    null,
-  );
 
   const poolsById = useMemo(() => new Map(pools.map((pool) => [pool.id, pool])), [pools]);
-  const signature = useMemo(
-    () => configSignature(pools, teams, settings),
-    [pools, teams, settings],
-  );
-  // Results are tied to the configuration that produced them: editing a pool, a team size or the
-  // uniqueness setting hides them instead of showing a draw that no longer matches the inputs.
-  const visible = generated && generated.signature === signature ? generated.teams : null;
+  const signature = useMemo(() => configSignature(pools, teams), [pools, teams]);
+  // Results are tied to the configuration that produced them: editing pool membership, a team size
+  // or a team's pools hides them instead of showing a draw that no longer matches the inputs.
+  const visible = draw && draw.signature === signature ? draw.teams : null;
 
   function randomise() {
     const result = generateTeams(state);
@@ -72,7 +76,7 @@ export function TeamsPanel() {
       return;
     }
     setErrors([]);
-    setGenerated({ signature, teams: result.teams });
+    onDraw({ signature, teams: result.teams });
     dispatch({
       type: "recordGeneration",
       entry: {

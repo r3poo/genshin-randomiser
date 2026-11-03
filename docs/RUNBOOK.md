@@ -228,10 +228,16 @@ rely on `pnpm dev`):
 - **Team result slots are a four-column grid.** The draw area in `components/TeamsPanel.tsx` is
   `grid grid-cols-4` regardless of team size, so a 2-member team's portraits are the same size as
   a 4-member team's and every team card lines up. Empty slots keep their column as dashed
-  placeholders rather than collapsing.
+  placeholders rather than collapsing. `components/HistoryPanel.tsx` uses the same grid, so a
+  recorded draw reads at the same scale as the live one.
+- **The last draw lives above the tab switcher.** `app/page.tsx` owns it (`type Draw` from
+  `components/TeamsPanel.tsx`) because inactive tabs are unmounted, not hidden — keeping the state
+  in the panel would discard it on every round trip to Pools or History. It is deliberately not
+  persisted: reloads start clean, and history is the durable record.
 - **Results are tied to their inputs.** A draw is hidden as soon as pool membership, team sizes or
-  the uniqueness setting change; the history entry stays. Renaming a pool or a team does not hide
-  it — `configSignature` in `components/TeamsPanel.tsx` fingerprints ids and membership only.
+  a team's pool selection change; the history entry stays. Renaming a pool or a team, or flipping
+  the uniqueness switch, does not hide it — `configSignature` in `components/TeamsPanel.tsx`
+  fingerprints ids and membership only.
 - **Unique mode is a matching problem, not a greedy loop.** Teams that share pools are solved with
   augmenting paths, and an impossible configuration reports which teams cannot be filled instead of
   silently returning short teams.

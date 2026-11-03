@@ -5,7 +5,7 @@ import { Banners } from "@/components/Banners";
 import { DataTransfer } from "@/components/DataTransfer";
 import { HistoryPanel } from "@/components/HistoryPanel";
 import { PoolsPanel } from "@/components/PoolsPanel";
-import { TeamsPanel } from "@/components/TeamsPanel";
+import { TeamsPanel, type Draw } from "@/components/TeamsPanel";
 import { useStore } from "@/lib/store";
 
 const TABS = [
@@ -19,6 +19,9 @@ type TabId = (typeof TABS)[number]["id"];
 export default function Page() {
   const { hydrated, state } = useStore();
   const [tab, setTab] = useState<TabId>("teams");
+  // Held here rather than inside TeamsPanel: the tab switcher unmounts inactive panels, and a
+  // draw must survive a round trip to the pools or history tab.
+  const [draw, setDraw] = useState<Draw | null>(null);
 
   return (
     <main className="mx-auto w-full px-4 py-8 md:px-6 md:py-10">
@@ -84,7 +87,7 @@ export default function Page() {
       >
         {hydrated ? (
           <>
-            {tab === "teams" ? <TeamsPanel /> : null}
+            {tab === "teams" ? <TeamsPanel draw={draw} onDraw={setDraw} /> : null}
             {tab === "pools" ? <PoolsPanel /> : null}
             {tab === "history" ? <HistoryPanel /> : null}
           </>
