@@ -1,24 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Banners } from "@/components/Banners";
 import { DataTransfer } from "@/components/DataTransfer";
 import { HistoryPanel } from "@/components/HistoryPanel";
 import { PoolsPanel } from "@/components/PoolsPanel";
 import { TeamsPanel, type Draw } from "@/components/TeamsPanel";
 import { useStore } from "@/lib/store";
-
-const TABS = [
-  { id: "teams", label: "Teams" },
-  { id: "pools", label: "Pools" },
-  { id: "history", label: "History" },
-] as const;
-
-type TabId = (typeof TABS)[number]["id"];
+import { DEFAULT_TAB, TABS, hashForTab, tabFromHash, type TabId } from "@/lib/tabs";
 
 export default function Page() {
   const { hydrated, state } = useStore();
-  const [tab, setTab] = useState<TabId>("teams");
+  const [tab, setTab] = useState<TabId>(DEFAULT_TAB);
+
+  // The tab is URL state, so it survives a reload without touching storage. The first render has
+  // to match the prerendered HTML (Teams), so the hash is read in an effect — by then the panels
+  // are still behind the hydration skeleton, so there is nothing to flash.
+  useEffect(() => {
+    setTab(tabFromHash(window.location.hash));
+    const onHashChange = () => setTab(tabFromHash(window.location.hash));
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
+  function selectTab(id: TabId) {
+    setTab(id);
+    const hash = hashForTab(id);
+    // pushState keeps the back button useful and does not fire hashchange, so no feedback loop.
+    if (window.location.hash !== hash) window.history.pushState(null, "", hash);
+  }
   // Held here rather than inside TeamsPanel: the tab switcher unmounts inactive panels, and a
   // draw must survive a round trip to the pools or history tab.
   const [draw, setDraw] = useState<Draw | null>(null);
@@ -58,7 +68,7 @@ export default function Page() {
             aria-selected={tab === entry.id}
             aria-controls={`panel-${entry.id}`}
             id={`tab-${entry.id}`}
-            onClick={() => setTab(entry.id)}
+            onClick={() => selectTab(entry.id)}
             className={`-mb-px border-b-2 px-3 py-2 text-sm transition-colors ${
               tab === entry.id
                 ? "border-accent text-strong"

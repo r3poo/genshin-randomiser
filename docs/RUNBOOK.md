@@ -52,13 +52,14 @@ npx --yes serve out      # or any static file server
 | `lib/validate.ts` | Parser for stored/imported payloads. Every repair is reported as an `Issue`. |
 | `lib/storage.ts` | `localStorage` probe, load and save. All access is wrapped; blocked storage is a supported state. |
 | `lib/store.tsx` | Reducer, persistence effect, `useStore`. |
+| `lib/tabs.ts` | Tab list plus the URL-hash helpers. Tab state is not persisted to storage. |
 | `lib/defaults.ts` | The seeded first-run state (one full-roster pool, two teams of four). |
 | `lib/randomise.ts` | Candidate unions and the unique-across-teams assignment. |
 | `data/characters.json` | Committed roster snapshot, 131 entries. Generated — do not hand-edit. |
 | `public/characters/` | 129 portraits, `{id}.png`. Generated. |
 | `public/icons/` | Element and weapon glyphs. Generated. |
 | `scripts/` | The two fetch scripts behind `pnpm data` and `pnpm assets`. |
-| `tests/` | Pure-logic tests: filters, randomiser, parser, defaults. |
+| `tests/` | Pure-logic tests: filters, randomiser, parser, defaults, tab hashes. |
 
 ## Refreshing game data
 
@@ -235,6 +236,12 @@ rely on `pnpm dev`):
   `CHARACTERS` and `Deselect all` empties the pool (confirm-guarded), ignoring both. The split
   exists because the earlier single pair ("Select shown") read as ambiguous. Every button is
   disabled when it would be a no-op, and the filtered pair carries the count in its tooltip.
+- **The active tab is URL state.** `app/page.tsx` reads `location.hash` (`#teams`, `#pools`,
+  `#history`) on mount and follows `hashchange`, so a reload — and the back button — land on the
+  right tab. Clicking a tab `pushState`s the hash. Nothing about the tab is written to
+  `localStorage` or `sessionStorage`; the first render is always Teams to match the prerendered
+  HTML, and the hash is applied in an effect while the hydration skeleton is still showing.
+  Unrecognised hashes fall back to Teams (`lib/tabs.ts`).
 - **The last draw lives above the tab switcher.** `app/page.tsx` owns it (`type Draw` from
   `components/TeamsPanel.tsx`) because inactive tabs are unmounted, not hidden — keeping the state
   in the panel would discard it on every round trip to Pools or History. It is deliberately not
