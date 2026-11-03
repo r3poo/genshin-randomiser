@@ -230,6 +230,10 @@ rely on `pnpm dev`):
   a 4-member team's and every team card lines up. Empty slots keep their column as dashed
   placeholders rather than collapsing. `components/HistoryPanel.tsx` uses the same grid, so a
   recorded draw reads at the same scale as the live one.
+- **Pool bulk actions are roster-wide, not filter-scoped.** `Select all` adds every character in
+  `CHARACTERS` and `Deselect all` empties the pool (confirm-guarded); both ignore the search box
+  and the filters on purpose, so their effect never depends on what is currently hidden. Each is
+  disabled when it would do nothing. Per-card toggling remains the only selective path.
 - **The last draw lives above the tab switcher.** `app/page.tsx` owns it (`type Draw` from
   `components/TeamsPanel.tsx`) because inactive tabs are unmounted, not hidden — keeping the state
   in the panel would discard it on every round trip to Pools or History. It is deliberately not

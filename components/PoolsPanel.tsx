@@ -24,6 +24,9 @@ import { ELEMENTS, GENDERS, RARITIES, WEAPONS } from "@/lib/types";
 import type { Character } from "@/lib/types";
 import { Portrait } from "./Portrait";
 
+/** Every character in the roster, in roster order — the target of "Select all". */
+const ALL_CHARACTER_IDS = CHARACTERS.map((character) => character.id);
+
 export function PoolsPanel() {
   const { state, dispatch } = useStore();
   const [activeId, setActiveId] = useState<string | null>(state.pools[0]?.id ?? null);
@@ -184,7 +187,13 @@ function PoolEditor({
     dispatch({ type: "togglePoolMember", poolId, characterId });
   }
 
-  function clearPool() {
+  // Deliberately roster-wide, not filter-scoped: the button says "all", so it must not depend on
+  // what the search box or filters happen to be hiding.
+  function selectAll() {
+    dispatch({ type: "setPoolMembers", poolId, memberIds: ALL_CHARACTER_IDS });
+  }
+
+  function deselectAll() {
     if (window.confirm(`Remove all ${memberCount} characters from "${name}"?`)) {
       dispatch({ type: "setPoolMembers", poolId, memberIds: [] });
     }
@@ -234,9 +243,26 @@ function PoolEditor({
           <span className="text-xs text-muted">
             {plural(shown.length, "character")} match · {selectedAmongShown} selected
           </span>
-          <button type="button" className={`${BUTTON_GHOST} ml-auto`} onClick={clearPool}>
-            Clear pool
-          </button>
+          <div className="ml-auto flex gap-1">
+            <button
+              type="button"
+              className={BUTTON_GHOST}
+              onClick={selectAll}
+              disabled={memberCount === ALL_CHARACTER_IDS.length}
+              title={`Add all ${ALL_CHARACTER_IDS.length} characters to this pool`}
+            >
+              Select all
+            </button>
+            <button
+              type="button"
+              className={BUTTON_GHOST}
+              onClick={deselectAll}
+              disabled={memberCount === 0}
+              title="Remove every character from this pool"
+            >
+              Deselect all
+            </button>
+          </div>
         </div>
 
         <FilterRow label="Element">
