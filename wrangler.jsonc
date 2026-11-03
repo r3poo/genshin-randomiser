@@ -1,0 +1,13 @@
+{
+  // Cloudflare Workers Builds deploys the static export from `pnpm build` (next.config.ts sets
+  // output: "export"). Assets-only: there is no Worker script, so no `main`.
+  // If the dashboard project name differs, change `name` to match — Workers Builds otherwise
+  // overrides it with the CI-provided name and warns.
+  "name": "genshin-randomiser",
+  "compatibility_date": "2026-11-03",
+  "assets": {
+    "directory": "./out",
+    // next build emits out/404.html; serve it instead of the generic Cloudflare 404.
+    "not_found_handling": "404-page"
+  }
+}

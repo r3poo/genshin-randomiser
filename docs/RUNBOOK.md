@@ -146,13 +146,39 @@ The build is a plain static export in `out/`. Two rules apply everywhere:
    (for example `/genshin-randomiser`). It is applied to `next.config.ts` `basePath` and to asset
    URLs in `lib/paths.ts`.
 
-### Cloudflare Pages (primary target)
+### Cloudflare Workers Builds (primary target)
+
+Deployed through the Workers Builds flow (Workers + static assets), not classic Pages. The
+dashboard runs a build command and then a deploy command; `wrangler.jsonc` in the repository root
+supplies the Worker name, compatibility date and the assets directory, so the deploy command needs
+no flags.
 
 | Setting | Value |
 |---|---|
 | Build command | `pnpm build` |
-| Build output directory | `out` |
+| Deploy command | `pnpm dlx wrangler deploy` |
 | Environment variables | `NODE_VERSION=24`, `NEXT_PUBLIC_BASE_PATH` unset |
+
+Two things that bite here:
+
+- **The deploy command must use pnpm, not `npx`.** `package.json` declares
+  `devEngines.packageManager` with `onFail: "download"`, which npm does not understand: npm ≥ 10.9
+  reads that block on *every* invocation, including `npx`, and aborts with `EBADDEVENGINES` before
+  wrangler starts. `npx wrangler deploy` therefore fails; `pnpm dlx wrangler deploy` does not.
+- **`wrangler.jsonc` `name` must match the dashboard project name.** Workers Builds passes the CI
+  name to wrangler and overrides a mismatch with a warning (and opens a PR to fix the file). If the
+  project is renamed, update `name` here.
+
+`pnpm dlx` fetches the latest wrangler on every build. To pin it instead, add `wrangler` to
+`devDependencies` and change the deploy command to `pnpm exec wrangler deploy`. Validate the
+config without deploying via `pnpm dlx wrangler deploy --dry-run --outdir /tmp/wr-dryrun`.
+
+### Cloudflare Pages (classic, no deploy command)
+
+Legacy flow: build command `pnpm build`, build output directory `out`, and no deploy command — the
+dashboard uploads `out/` itself, so wrangler and `wrangler.jsonc` are unused. Keep
+`pages_build_output_dir` out of `wrangler.jsonc`; mixing the Pages and Workers keys makes wrangler
+reject the config for both flows.
 
 ### GitHub Pages
 
