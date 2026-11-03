@@ -100,6 +100,9 @@ async function main() {
           weapon: d.weapon_type?.name ?? null,
           rarity: d.rarity,
           gender: d.gender?.name ?? null,
+          // Derived, not fetched: `scripts/fetch-assets.mjs` writes exactly this path, so the
+          // field is always present and the UI never has to guess a filename.
+          icon: `/characters/${d.id}.png`,
         });
       } catch (err) {
         failures.push(`${file.name}: ${err.message}`);

@@ -87,6 +87,29 @@ Assets (all verified `200`):
 Portrait coverage is 136/136, including `UI_AvatarIcon_SkirkNew`, `UI_AvatarIcon_Columbina`,
 `UI_AvatarIcon_Nefer`, `UI_AvatarIcon_Lauma`, `UI_AvatarIcon_Zibai`.
 
+### What this repo vendors (`pnpm assets`)
+
+`scripts/fetch-assets.mjs` downloads once and commits the result, so the site makes no third-party
+request at runtime:
+
+| Local path | Contents |
+|---|---|
+| `public/characters/{id}.png` | 129 portraits, keyed by our slug (not the upstream icon name) |
+| `public/icons/element-{element}.png` | 7 element glyphs, keyed by our element name |
+| `public/icons/weapon-{weaponType}.png` | 5 weapon glyphs |
+
+The script writes the resolved path back into `data/characters.json` as `icon`, and sets it to
+`null` when no portrait exists. Two roster entries have no art — `mitya` and `valeriy` — because
+they are dvaJi-only entries that Yatta does not carry; the UI draws their initials instead. This is
+expected, not a download failure.
+
+There is **no `Elementless` glyph** in the Yatta asset set, so that chip falls back to a plain
+label. The seven element glyphs are Fire/Water/Wind/Electric/Ice/Rock/Grass — note the naming does
+not match our `Pyro`/`Hydro`/`Anemo`/`Electro`/`Cryo`/`Geo`/`Dendro`, so the mapping is explicit in
+the script.
+
+Re-running the script is idempotent: files already on disk are skipped unless `--force` is passed.
+
 ### The join key
 
 The numeric game ID is shared (`gameId` in our output, the object key in Yatta) — join on that.
