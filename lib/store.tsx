@@ -12,14 +12,9 @@ import {
 import type { AppState, HistoryEntry, Pool, Team } from "./types.ts";
 import { TEAM_SIZE_MAX, TEAM_SIZE_MIN } from "./types.ts";
 import { loadState, saveState, type StorageStatus } from "./storage.ts";
-import { emptyState, type Issue } from "./validate.ts";
-
-function newId(prefix: string): string {
-  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
-    return `${prefix}-${crypto.randomUUID().slice(0, 8)}`;
-  }
-  return `${prefix}-${Math.random().toString(36).slice(2, 10)}`;
-}
+import { initialState } from "./defaults.ts";
+import { newId } from "./ids.ts";
+import { HISTORY_LIMIT, emptyState, type Issue } from "./validate.ts";
 
 function clampSize(size: number): number {
   return Math.min(TEAM_SIZE_MAX, Math.max(TEAM_SIZE_MIN, Math.round(size)));
@@ -29,7 +24,7 @@ export type Action =
   | { type: "hydrate"; state: AppState }
   | { type: "replace"; state: AppState }
   | { type: "reset" }
-  | { type: "addPool" }
+  | { type: "addPool"; poolId?: string; name?: string }
   | { type: "renamePool"; poolId: string; name: string }
   | { type: "deletePool"; poolId: string }
   | { type: "togglePoolMember"; poolId: string; characterId: string }
@@ -69,7 +64,12 @@ export function reducer(state: AppState, action: Action): AppState {
 
     case "addPool": {
       const index = state.pools.length + 1;
-      const pool: Pool = { id: newId("pool"), name: `Pool ${index}`, memberIds: [] };
+      const pool: Pool = {
+        // The caller may supply an id so it can select the pool it just created.
+        id: action.poolId ?? newId("pool"),
+        name: action.name ?? `Pool ${index}`,
+        memberIds: [],
+      };
       return { ...state, pools: [...state.pools, pool] };
     }
 
@@ -128,7 +128,9 @@ export function reducer(state: AppState, action: Action): AppState {
       return { ...state, settings: { ...state.settings, uniqueAcrossTeams: action.value } };
 
     case "recordGeneration":
-      return { ...state, history: [action.entry, ...state.history] };
+      // Trimmed here as well as on load: a long session would otherwise grow without bound
+      // between reloads.
+      return { ...state, history: [action.entry, ...state.history].slice(0, HISTORY_LIMIT) };
 
     case "deleteHistoryEntry":
       return { ...state, history: state.history.filter((entry) => entry.id !== action.entryId) };
@@ -158,7 +160,7 @@ interface StoreValue {
 const StoreContext = createContext<StoreValue | null>(null);
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, undefined, emptyState);
+  const [state, dispatch] = useReducer(reducer, undefined, initialState);
   const [hydrated, setHydrated] = useState(false);
   const [storageStatus, setStorageStatus] = useState<StorageStatus>("unavailable");
   const [storageDetail, setStorageDetail] = useState<string | null>(null);

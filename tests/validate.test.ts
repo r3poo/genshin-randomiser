@@ -163,3 +163,64 @@ test("rejects a bare state object with no wrapper", () => {
   const { issues } = parseExportPayload({ pools: [], teams: [] });
   assert.ok(hasError(issues, /Not a genshin-team-randomiser export/), messages(issues));
 });
+
+test("history beyond the limit keeps the newest entries and says so", () => {
+  const entry = (id: string, createdAt: string) => ({
+    id,
+    createdAt,
+    uniqueAcrossTeams: false,
+    teams: [{ teamId: "t", teamName: "T", memberIds: [A] }],
+  });
+  const { state, issues } = parseAppState(
+    {
+      history: [
+        entry("old", "2025-01-01T00:00:00.000Z"),
+        entry("new", "2026-06-01T00:00:00.000Z"),
+        entry("mid", "2025-09-01T00:00:00.000Z"),
+      ],
+    },
+    { historyLimit: 2 },
+  );
+  assert.deepEqual(state.history.map((h) => h.id), ["new", "mid"]);
+  assert.ok(
+    issues.some((i) => i.level === "warning" && /kept the 2 most recent/.test(i.message)),
+    messages(issues),
+  );
+});
+
+test("a character repeated inside one history team is counted once", () => {
+  const { state } = parseAppState({
+    history: [
+      {
+        id: "h1",
+        createdAt: "2026-01-01T00:00:00.000Z",
+        uniqueAcrossTeams: true,
+        teams: [{ teamId: "t", teamName: "T", memberIds: [A, A, B] }],
+      },
+    ],
+  });
+  assert.deepEqual(state.history[0]?.teams[0]?.memberIds, [A, B]);
+});
+
+test("settings accept only a real boolean true", () => {
+  for (const value of ["true", 1, null, {}]) {
+    const { state } = parseAppState({ settings: { uniqueAcrossTeams: value } });
+    assert.equal(state.settings.uniqueAcrossTeams, false, `accepted ${JSON.stringify(value)}`);
+  }
+  const { state } = parseAppState({ settings: { uniqueAcrossTeams: true } });
+  assert.equal(state.settings.uniqueAcrossTeams, true);
+});
+
+test("a pool without a name gets a label instead of an empty heading", () => {
+  const { state, issues } = parseAppState({ pools: [{ id: "p1", memberIds: [A] }] });
+  assert.equal(state.pools[0]?.name, "Untitled pool");
+  assert.ok(issues.some((i) => i.level === "warning"), messages(issues));
+});
+
+test("a pool listed twice by a team contributes each character once", () => {
+  const { state } = parseAppState({
+    pools: [{ id: "p1", name: "P", memberIds: [A, B] }],
+    teams: [{ id: "t1", name: "T", size: 2, poolIds: ["p1", "p1"] }],
+  });
+  assert.deepEqual(state.teams[0]?.poolIds, ["p1"]);
+});

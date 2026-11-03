@@ -127,3 +127,39 @@ test("out-of-range team sizes are clamped rather than overfilling", () => {
   if (!result.ok) return;
   assert.equal(result.teams[0]?.memberIds.length, 4);
 });
+
+test("a team that lists the same pool twice draws from it once", () => {
+  const pools = new Map([["p1", pool("p1", [A, B])]]);
+  assert.deepEqual(teamCandidates(team("t", 2, ["p1", "p1"]), pools), [A, B]);
+});
+
+test("three teams sharing a pool of three fill exactly, without repeats", () => {
+  const pools = new Map([["p1", pool("p1", [A, B, C])]]);
+  const teams = [team("t1", 1, ["p1"]), team("t2", 1, ["p1"]), team("t3", 1, ["p1"])];
+  const result = generateTeams(state([...pools.values()], teams, true), zero);
+  assert.equal(result.ok, true, result.ok ? "" : result.errors.join("; "));
+  if (!result.ok) return;
+  assert.deepEqual(result.teams.flatMap((t) => t.memberIds).sort(), [A, B, C].sort());
+});
+
+test("unique mode reports every team that cannot be filled", () => {
+  const pools = new Map([["p1", pool("p1", [A])]]);
+  const teams = [team("t1", 1, ["p1"]), team("t2", 1, ["p1"])];
+  const result = generateTeams(state([...pools.values()], teams, true), zero);
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.equal(result.errors.length, 2);
+});
+
+test("repeated draws do not return the same four characters", () => {
+  const pools = new Map([["p1", pool("p1", [A, B, C, D])]]);
+  const teams = [team("t1", 2, ["p1"])];
+  const seen = new Set<string>();
+  for (let i = 0; i < 60; i += 1) {
+    const result = generateTeams(state([...pools.values()], teams), Math.random);
+    assert.equal(result.ok, true);
+    if (!result.ok) return;
+    seen.add([...(result.teams[0]?.memberIds ?? [])].sort().join("+"));
+  }
+  assert.ok(seen.size > 1, "60 draws from a pool of four produced one combination");
+});
