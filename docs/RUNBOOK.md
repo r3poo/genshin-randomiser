@@ -28,7 +28,7 @@ pnpm install
 |---|---|
 | `pnpm dev` | Dev server on <http://localhost:3000>. |
 | `pnpm typecheck` | `tsc --noEmit`. No emit, no incremental cache problems. |
-| `pnpm test` | Node's built-in test runner over `tests/*.test.ts`. |
+| `pnpm test` | Node's built-in test runner over `tests/*.test.ts`. No browser, no DOM, no network. |
 | `pnpm build` | Static export into `out/`. Fails on type errors. |
 | `pnpm data` | Re-fetch the character roster (network). |
 | `pnpm assets` | Re-fetch portraits and glyphs (network). |
@@ -144,11 +144,25 @@ Upload `out/`. No rewrites are needed: there is a single route plus Next's `404.
 
 ## Verifying a change
 
+Automated gate — must be green before a commit:
+
 ```bash
 pnpm typecheck && pnpm test && pnpm build
 ```
 
-Then check the exported site, not just the dev server — the static export is what ships:
+What the 63 tests cover, all without a browser:
+
+| File | Covers |
+|---|---|
+| `tests/filters.test.ts` | Additive filter semantics, empty category shows nothing, Traveler gender behaviour, canonical ordering. |
+| `tests/randomise.test.ts` | Pool unions, size clamping, error messages, and unique mode against feasible, tight and infeasible configurations. |
+| `tests/validate.test.ts` | Import parsing: unknown fields and characters, duplicate ids, dangling pool references, history ordering, trimming and timestamp rejection. |
+| `tests/storage.test.ts` | `localStorage` with a fake `window`: round-trip, absent window, throwing getter, quota error, corrupt-JSON backup. |
+| `tests/data-integrity.test.ts` | The committed roster: canonical enums, unique ids and names, name sort order, every `icon` file present on disk, known art gaps. |
+| `tests/defaults.test.ts` | First-run seed shape and its round-trip through the importer. |
+
+Manual checks belong to the site owner and need a real browser against `out/` (serve it, do not
+rely on `pnpm dev`):
 
 1. First load shows one pool ("All characters", 131 members) and two teams of four.
 2. `Randomise` fills both teams; with *Unique members across teams* on, no character repeats.
@@ -158,6 +172,8 @@ Then check the exported site, not just the dev server — the static export is w
 5. Export, edit the file to include a bogus character id, import it: the character is dropped and
    the report says so.
 6. History shows the draw with a timestamp; deleting an entry persists across reload.
+7. Blocked storage: load the site with `localStorage` disabled and confirm the banner appears and
+   the app still runs.
 
 ## Known behaviour worth remembering
 
