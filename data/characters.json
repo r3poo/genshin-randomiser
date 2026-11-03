@@ -1,0 +1,1312 @@
+[
+  {
+    "id": "aino",
+    "gameId": 10000121,
+    "name": "Aino",
+    "title": "Clinky-Clank Gadgets-A-Gogo",
+    "element": "Hydro",
+    "weapon": "Claymore",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "albedo",
+    "gameId": 10000038,
+    "name": "Albedo",
+    "title": "Kreideprinz",
+    "element": "Geo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "alhaitham",
+    "gameId": 10000078,
+    "name": "Alhaitham",
+    "title": "Admonishing Instruction",
+    "element": "Dendro",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "aloy",
+    "gameId": 10000062,
+    "name": "Aloy",
+    "title": "Savior From Another World",
+    "element": "Cryo",
+    "weapon": "Bow",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "alyosha",
+    "gameId": 10000148,
+    "name": "Alyosha",
+    "title": "Swift-Striding Hound",
+    "element": "Electro",
+    "weapon": "Polearm",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "amber",
+    "gameId": 10000021,
+    "name": "Amber",
+    "title": "Gliding Champion",
+    "element": "Pyro",
+    "weapon": "Bow",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "arataki_itto",
+    "gameId": 10000057,
+    "name": "Arataki Itto",
+    "title": "Hanamizaka Heroics",
+    "element": "Geo",
+    "weapon": "Claymore",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "arlecchino",
+    "gameId": 10000096,
+    "name": "Arlecchino",
+    "title": "Dire Balemoon",
+    "element": "Pyro",
+    "weapon": "Polearm",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "baizhu",
+    "gameId": 10000082,
+    "name": "Baizhu",
+    "title": "Beyond Mortality",
+    "element": "Dendro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "barbara",
+    "gameId": 10000014,
+    "name": "Barbara",
+    "title": "Shining Idol",
+    "element": "Hydro",
+    "weapon": "Catalyst",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "beidou",
+    "gameId": 10000024,
+    "name": "Beidou",
+    "title": "Uncrowned Lord of the Ocean",
+    "element": "Electro",
+    "weapon": "Claymore",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "bennett",
+    "gameId": 10000032,
+    "name": "Bennett",
+    "title": "Trial by Fire",
+    "element": "Pyro",
+    "weapon": "Sword",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "candace",
+    "gameId": 10000072,
+    "name": "Candace",
+    "title": "Golden Vow",
+    "element": "Hydro",
+    "weapon": "Polearm",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "charlotte",
+    "gameId": 10000088,
+    "name": "Charlotte",
+    "title": "Lens of Verity",
+    "element": "Cryo",
+    "weapon": "Catalyst",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "chasca",
+    "gameId": 10000104,
+    "name": "Chasca",
+    "title": "Skyborne Arbiter",
+    "element": "Anemo",
+    "weapon": "Bow",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "chevreuse",
+    "gameId": 10000090,
+    "name": "Chevreuse",
+    "title": "Executor of Justice",
+    "element": "Pyro",
+    "weapon": "Polearm",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "chiori",
+    "gameId": 10000094,
+    "name": "Chiori",
+    "title": "The Thundering Seamstress",
+    "element": "Geo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "chongyun",
+    "gameId": 10000036,
+    "name": "Chongyun",
+    "title": "Frozen Ardor",
+    "element": "Cryo",
+    "weapon": "Claymore",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "citlali",
+    "gameId": 10000107,
+    "name": "Citlali",
+    "title": "Obsidian Opalstar",
+    "element": "Cryo",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "clorinde",
+    "gameId": 10000098,
+    "name": "Clorinde",
+    "title": "Candlebearer, Shadowhunter",
+    "element": "Electro",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "collei",
+    "gameId": 10000067,
+    "name": "Collei",
+    "title": "Sprout of Rebirth",
+    "element": "Dendro",
+    "weapon": "Bow",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "columbina",
+    "gameId": 10000125,
+    "name": "Columbina",
+    "title": "Welkin Moon's Homecoming",
+    "element": "Hydro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "cyno",
+    "gameId": 10000071,
+    "name": "Cyno",
+    "title": "Judicator of Secrets",
+    "element": "Electro",
+    "weapon": "Polearm",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "dahlia",
+    "gameId": 10000115,
+    "name": "Dahlia",
+    "title": "Ode and Oblation",
+    "element": "Hydro",
+    "weapon": "Sword",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "dehya",
+    "gameId": 10000079,
+    "name": "Dehya",
+    "title": "Flame-Mane",
+    "element": "Pyro",
+    "weapon": "Claymore",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "diluc",
+    "gameId": 10000016,
+    "name": "Diluc",
+    "title": "Dark Side of Dawn",
+    "element": "Pyro",
+    "weapon": "Claymore",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "diona",
+    "gameId": 10000039,
+    "name": "Diona",
+    "title": "Kätzlein Cocktail",
+    "element": "Cryo",
+    "weapon": "Bow",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "dori",
+    "gameId": 10000068,
+    "name": "Dori",
+    "title": "Treasure of Dream Garden",
+    "element": "Electro",
+    "weapon": "Claymore",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "durin",
+    "gameId": 10000123,
+    "name": "Durin",
+    "title": "\"The Undying Fire\"",
+    "element": "Pyro",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "emilie",
+    "gameId": 10000099,
+    "name": "Emilie",
+    "title": "A Thousand Scents Traced",
+    "element": "Dendro",
+    "weapon": "Polearm",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "escoffier",
+    "gameId": 10000112,
+    "name": "Escoffier",
+    "title": "Tasteful Excellence",
+    "element": "Cryo",
+    "weapon": "Polearm",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "eula",
+    "gameId": 10000051,
+    "name": "Eula",
+    "title": "Dance of the Shimmering Wave",
+    "element": "Cryo",
+    "weapon": "Claymore",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "faruzan",
+    "gameId": 10000076,
+    "name": "Faruzan",
+    "title": "Enigmatic Machinist",
+    "element": "Anemo",
+    "weapon": "Bow",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "fischl",
+    "gameId": 10000031,
+    "name": "Fischl",
+    "title": "Prinzessin der Verurteilung!",
+    "element": "Electro",
+    "weapon": "Bow",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "flins",
+    "gameId": 10000120,
+    "name": "Flins",
+    "title": "Shadowy Lights, Stranger Wights",
+    "element": "Electro",
+    "weapon": "Polearm",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "freminet",
+    "gameId": 10000085,
+    "name": "Freminet",
+    "title": "Yearning for Unseen Depths",
+    "element": "Cryo",
+    "weapon": "Claymore",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "furina",
+    "gameId": 10000089,
+    "name": "Furina",
+    "title": "Endless Solo of Solitude",
+    "element": "Hydro",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "gaming",
+    "gameId": 10000092,
+    "name": "Gaming",
+    "title": "Leonine Vanguard",
+    "element": "Pyro",
+    "weapon": "Claymore",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "ganyu",
+    "gameId": 10000037,
+    "name": "Ganyu",
+    "title": "Plenilune Gaze",
+    "element": "Cryo",
+    "weapon": "Bow",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "gorou",
+    "gameId": 10000055,
+    "name": "Gorou",
+    "title": "Canine Warrior",
+    "element": "Geo",
+    "weapon": "Bow",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "hu_tao",
+    "gameId": 10000046,
+    "name": "Hu Tao",
+    "title": "Fragrance in Thaw",
+    "element": "Pyro",
+    "weapon": "Polearm",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "iansan",
+    "gameId": 10000110,
+    "name": "Iansan",
+    "title": "Tempered in Molten Stone",
+    "element": "Electro",
+    "weapon": "Polearm",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "ifa",
+    "gameId": 10000113,
+    "name": "Ifa",
+    "title": "In the Wake of Wandering Winds",
+    "element": "Anemo",
+    "weapon": "Catalyst",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "illuga",
+    "gameId": 10000127,
+    "name": "Illuga",
+    "title": "Nightmare's Burning Heart",
+    "element": "Geo",
+    "weapon": "Polearm",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "ineffa",
+    "gameId": 10000116,
+    "name": "Ineffa",
+    "title": "Boom Boom Thunderwave",
+    "element": "Electro",
+    "weapon": "Polearm",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "jahoda",
+    "gameId": 10000124,
+    "name": "Jahoda",
+    "title": "Windthreading Shadow",
+    "element": "Anemo",
+    "weapon": "Bow",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "jean",
+    "gameId": 10000003,
+    "name": "Jean",
+    "title": "Dandelion Knight",
+    "element": "Anemo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "kachina",
+    "gameId": 10000100,
+    "name": "Kachina",
+    "title": "Mottled Gold Yet Unsmelted",
+    "element": "Geo",
+    "weapon": "Polearm",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "kaedehara_kazuha",
+    "gameId": 10000047,
+    "name": "Kaedehara Kazuha",
+    "title": "Scarlet Leaves Pursue Wild Waves",
+    "element": "Anemo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "kaeya",
+    "gameId": 10000015,
+    "name": "Kaeya",
+    "title": "Frostwind Swordsman",
+    "element": "Cryo",
+    "weapon": "Sword",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "kamisato_ayaka",
+    "gameId": 10000002,
+    "name": "Kamisato Ayaka",
+    "title": "Frostflake Heron",
+    "element": "Cryo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "kamisato_ayato",
+    "gameId": 10000066,
+    "name": "Kamisato Ayato",
+    "title": "Pillar of Fortitude",
+    "element": "Hydro",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "kaveh",
+    "gameId": 10000081,
+    "name": "Kaveh",
+    "title": "Empyrean Reflection",
+    "element": "Dendro",
+    "weapon": "Claymore",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "keqing",
+    "gameId": 10000042,
+    "name": "Keqing",
+    "title": "Driving Thunder",
+    "element": "Electro",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "kinich",
+    "gameId": 10000101,
+    "name": "Kinich",
+    "title": "Turnfire Hunt",
+    "element": "Dendro",
+    "weapon": "Claymore",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "kirara",
+    "gameId": 10000061,
+    "name": "Kirara",
+    "title": "Cat Upon the Eaves",
+    "element": "Dendro",
+    "weapon": "Sword",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "klee",
+    "gameId": 10000029,
+    "name": "Klee",
+    "title": "Fleeing Sunlight",
+    "element": "Pyro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "kujou_sara",
+    "gameId": 10000056,
+    "name": "Kujou Sara",
+    "title": "Crowfeather Kaburaya",
+    "element": "Electro",
+    "weapon": "Bow",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "kuki_shinobu",
+    "gameId": 10000065,
+    "name": "Kuki Shinobu",
+    "title": "Mender of Tribulations",
+    "element": "Electro",
+    "weapon": "Sword",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "lan_yan",
+    "gameId": 10000108,
+    "name": "Lan Yan",
+    "title": "Spring Woven From Jade",
+    "element": "Anemo",
+    "weapon": "Catalyst",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "lauma",
+    "gameId": 10000119,
+    "name": "Lauma",
+    "title": "Evermoon's Sacrament Song",
+    "element": "Dendro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "layla",
+    "gameId": 10000074,
+    "name": "Layla",
+    "title": "Fantastical Evening Star",
+    "element": "Cryo",
+    "weapon": "Sword",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "linnea",
+    "gameId": 10000130,
+    "name": "Linnea",
+    "title": "Augur of Wonders",
+    "element": "Geo",
+    "weapon": "Bow",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "lisa",
+    "gameId": 10000006,
+    "name": "Lisa",
+    "title": "Witch of Purple Rose",
+    "element": "Electro",
+    "weapon": "Catalyst",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "lohen",
+    "gameId": 10000129,
+    "name": "Lohen",
+    "title": "Sharpened Arrowhead",
+    "element": "Cryo",
+    "weapon": "Polearm",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "lynette",
+    "gameId": 10000083,
+    "name": "Lynette",
+    "title": "Elegance in the Shadows",
+    "element": "Anemo",
+    "weapon": "Sword",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "lyney",
+    "gameId": 10000084,
+    "name": "Lyney",
+    "title": "Spectacle of Phantasmagoria",
+    "element": "Pyro",
+    "weapon": "Bow",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "manekin",
+    "gameId": 10000117,
+    "name": "Manekin",
+    "title": null,
+    "element": "Elementless",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "manekina",
+    "gameId": 10000118,
+    "name": "Manekina",
+    "title": null,
+    "element": "Elementless",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "mavuika",
+    "gameId": 10000106,
+    "name": "Mavuika",
+    "title": "Night-Igniting Flame",
+    "element": "Pyro",
+    "weapon": "Claymore",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "mika",
+    "gameId": 10000080,
+    "name": "Mika",
+    "title": "Coordinates of Clear Frost",
+    "element": "Cryo",
+    "weapon": "Polearm",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "mitya",
+    "gameId": 10000136,
+    "name": "Mitya",
+    "title": "Rules Set at Naught",
+    "element": "Electro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "mona",
+    "gameId": 10000041,
+    "name": "Mona",
+    "title": "Astral Reflection",
+    "element": "Hydro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "mualani",
+    "gameId": 10000102,
+    "name": "Mualani",
+    "title": "Splish-Splash Wavechaser",
+    "element": "Hydro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "nahida",
+    "gameId": 10000073,
+    "name": "Nahida",
+    "title": "Physic of Purity",
+    "element": "Dendro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "navia",
+    "gameId": 10000091,
+    "name": "Navia",
+    "title": "Helm of the Radiant Rose",
+    "element": "Geo",
+    "weapon": "Claymore",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "nefer",
+    "gameId": 10000122,
+    "name": "Nefer",
+    "title": "Secret Beneath the Sands",
+    "element": "Dendro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "neuvillette",
+    "gameId": 10000087,
+    "name": "Neuvillette",
+    "title": "Ordainer of Inexorable Judgment",
+    "element": "Hydro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "nicole",
+    "gameId": 10000131,
+    "name": "Nicole",
+    "title": "Clamor Within",
+    "element": "Pyro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "nilou",
+    "gameId": 10000070,
+    "name": "Nilou",
+    "title": "Dance of Lotuslight",
+    "element": "Hydro",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "ningguang",
+    "gameId": 10000027,
+    "name": "Ningguang",
+    "title": "Eclipsing Star",
+    "element": "Geo",
+    "weapon": "Catalyst",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "noelle",
+    "gameId": 10000034,
+    "name": "Noelle",
+    "title": "Chivalric Blossom",
+    "element": "Geo",
+    "weapon": "Claymore",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "odette",
+    "gameId": 10000150,
+    "name": "Odette",
+    "title": "Swirling Snow",
+    "element": "Cryo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "ororon",
+    "gameId": 10000105,
+    "name": "Ororon",
+    "title": "Shadow of the Night-Wind",
+    "element": "Electro",
+    "weapon": "Bow",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "prune",
+    "gameId": 10000132,
+    "name": "Prune",
+    "title": "Childlike Dreams Cherished",
+    "element": "Anemo",
+    "weapon": "Catalyst",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "qiqi",
+    "gameId": 10000035,
+    "name": "Qiqi",
+    "title": "Icy Resurrection",
+    "element": "Cryo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "raiden_shogun",
+    "gameId": 10000052,
+    "name": "Raiden Shogun",
+    "title": "Plane of Euthymia",
+    "element": "Electro",
+    "weapon": "Polearm",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "razor",
+    "gameId": 10000020,
+    "name": "Razor",
+    "title": "Wolf Boy",
+    "element": "Electro",
+    "weapon": "Claymore",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "rosaria",
+    "gameId": 10000045,
+    "name": "Rosaria",
+    "title": "Thorny Benevolence",
+    "element": "Cryo",
+    "weapon": "Polearm",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "sandrone",
+    "gameId": 10000133,
+    "name": "Sandrone",
+    "title": "Mirrored Analysis",
+    "element": "Cryo",
+    "weapon": "Claymore",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "sangonomiya_kokomi",
+    "gameId": 10000054,
+    "name": "Sangonomiya Kokomi",
+    "title": "Pearl of Wisdom",
+    "element": "Hydro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "sayu",
+    "gameId": 10000053,
+    "name": "Sayu",
+    "title": "Mujina Ninja",
+    "element": "Anemo",
+    "weapon": "Claymore",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "sethos",
+    "gameId": 10000097,
+    "name": "Sethos",
+    "title": "Wisdom's Measure",
+    "element": "Electro",
+    "weapon": "Bow",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "shenhe",
+    "gameId": 10000063,
+    "name": "Shenhe",
+    "title": "Lonesome Transcendence",
+    "element": "Cryo",
+    "weapon": "Polearm",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "shikanoin_heizou",
+    "gameId": 10000059,
+    "name": "Shikanoin Heizou",
+    "title": "Analytical Harmony",
+    "element": "Anemo",
+    "weapon": "Catalyst",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "sigewinne",
+    "gameId": 10000095,
+    "name": "Sigewinne",
+    "title": "Wondrous Dragonheir",
+    "element": "Hydro",
+    "weapon": "Bow",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "skirk",
+    "gameId": 10000114,
+    "name": "Skirk",
+    "title": "Void Star",
+    "element": "Cryo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "sucrose",
+    "gameId": 10000043,
+    "name": "Sucrose",
+    "title": "Harmless Sweetie",
+    "element": "Anemo",
+    "weapon": "Catalyst",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "tartaglia",
+    "gameId": 10000033,
+    "name": "Tartaglia",
+    "title": "Childe",
+    "element": "Hydro",
+    "weapon": "Bow",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "thoma",
+    "gameId": 10000050,
+    "name": "Thoma",
+    "title": "Protector From Afar",
+    "element": "Pyro",
+    "weapon": "Polearm",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "tighnari",
+    "gameId": 10000069,
+    "name": "Tighnari",
+    "title": "Verdant Strider",
+    "element": "Dendro",
+    "weapon": "Bow",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "traveler_anemo",
+    "gameId": 10000007,
+    "name": "Traveler (Anemo)",
+    "title": null,
+    "element": "Anemo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male/Female"
+  },
+  {
+    "id": "traveler_cryo",
+    "gameId": 10000007,
+    "name": "Traveler (Cryo)",
+    "title": null,
+    "element": "Cryo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male/Female"
+  },
+  {
+    "id": "traveler_dendro",
+    "gameId": 10000007,
+    "name": "Traveler (Dendro)",
+    "title": null,
+    "element": "Dendro",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male/Female"
+  },
+  {
+    "id": "traveler_electro",
+    "gameId": 10000007,
+    "name": "Traveler (Electro)",
+    "title": null,
+    "element": "Electro",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male/Female"
+  },
+  {
+    "id": "traveler_geo",
+    "gameId": 10000007,
+    "name": "Traveler (Geo)",
+    "title": null,
+    "element": "Geo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male/Female"
+  },
+  {
+    "id": "traveler_hydro",
+    "gameId": 10000007,
+    "name": "Traveler (Hydro)",
+    "title": null,
+    "element": "Hydro",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male/Female"
+  },
+  {
+    "id": "traveler_pyro",
+    "gameId": 10000007,
+    "name": "Traveler (Pyro)",
+    "title": null,
+    "element": "Pyro",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Male/Female"
+  },
+  {
+    "id": "valeriy",
+    "gameId": 10000137,
+    "name": "Valeriy",
+    "title": "Fort Fulguration",
+    "element": "Electro",
+    "weapon": "Sword",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "varesa",
+    "gameId": 10000111,
+    "name": "Varesa",
+    "title": "Strength in Serenity",
+    "element": "Electro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "varka",
+    "gameId": 10000128,
+    "name": "Varka",
+    "title": "Knight of Boreas",
+    "element": "Anemo",
+    "weapon": "Claymore",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "venti",
+    "gameId": 10000022,
+    "name": "Venti",
+    "title": "Windborne Bard",
+    "element": "Anemo",
+    "weapon": "Bow",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "vesna",
+    "gameId": 10000143,
+    "name": "Vesna",
+    "title": "Snowy Banquet's Sharp Blade",
+    "element": "Anemo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "vodyanitsa",
+    "gameId": 10000140,
+    "name": "Vodyanitsa",
+    "title": "Lingering Siren-Song",
+    "element": "Hydro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "wanderer",
+    "gameId": 10000075,
+    "name": "Wanderer",
+    "title": "Eons Adrift",
+    "element": "Anemo",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "wriothesley",
+    "gameId": 10000086,
+    "name": "Wriothesley",
+    "title": "Emissary of Solitary Iniquity",
+    "element": "Cryo",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "xiangling",
+    "gameId": 10000023,
+    "name": "Xiangling",
+    "title": "Exquisite Delicacy",
+    "element": "Pyro",
+    "weapon": "Polearm",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "xianyun",
+    "gameId": 10000093,
+    "name": "Xianyun",
+    "title": "Passerine Herald",
+    "element": "Anemo",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "xiao",
+    "gameId": 10000026,
+    "name": "Xiao",
+    "title": "Vigilant Yaksha",
+    "element": "Anemo",
+    "weapon": "Polearm",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "xilonen",
+    "gameId": 10000103,
+    "name": "Xilonen",
+    "title": "Ardent Flames Forge the Soul",
+    "element": "Geo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "xingqiu",
+    "gameId": 10000025,
+    "name": "Xingqiu",
+    "title": "Juvenile Galant",
+    "element": "Hydro",
+    "weapon": "Sword",
+    "rarity": 4,
+    "gender": "Male"
+  },
+  {
+    "id": "xinyan",
+    "gameId": 10000044,
+    "name": "Xinyan",
+    "title": "Blazing Riff",
+    "element": "Pyro",
+    "weapon": "Claymore",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "yae_miko",
+    "gameId": 10000058,
+    "name": "Yae Miko",
+    "title": "Astute Amusement",
+    "element": "Electro",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "yanfei",
+    "gameId": 10000048,
+    "name": "Yanfei",
+    "title": "Wise Innocence",
+    "element": "Pyro",
+    "weapon": "Catalyst",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "yaoyao",
+    "gameId": 10000077,
+    "name": "Yaoyao",
+    "title": "Burgeoning Grace",
+    "element": "Dendro",
+    "weapon": "Polearm",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "yelan",
+    "gameId": 10000060,
+    "name": "Yelan",
+    "title": "Valley Orchid",
+    "element": "Hydro",
+    "weapon": "Bow",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "yoimiya",
+    "gameId": 10000049,
+    "name": "Yoimiya",
+    "title": "Frolicking Flames",
+    "element": "Pyro",
+    "weapon": "Bow",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "yumemizuki_mizuki",
+    "gameId": 10000109,
+    "name": "Yumemizuki Mizuki",
+    "title": "Embrace of Enchanting Dreams",
+    "element": "Anemo",
+    "weapon": "Catalyst",
+    "rarity": 5,
+    "gender": "Female"
+  },
+  {
+    "id": "yun_jin",
+    "gameId": 10000064,
+    "name": "Yun Jin",
+    "title": "Stage Lucida",
+    "element": "Geo",
+    "weapon": "Polearm",
+    "rarity": 4,
+    "gender": "Female"
+  },
+  {
+    "id": "zhongli",
+    "gameId": 10000030,
+    "name": "Zhongli",
+    "title": "Vago Mundo",
+    "element": "Geo",
+    "weapon": "Polearm",
+    "rarity": 5,
+    "gender": "Male"
+  },
+  {
+    "id": "zibai",
+    "gameId": 10000126,
+    "name": "Zibai",
+    "title": "White Horse's Fleeting Spring",
+    "element": "Geo",
+    "weapon": "Sword",
+    "rarity": 5,
+    "gender": "Female"
+  }
+]
