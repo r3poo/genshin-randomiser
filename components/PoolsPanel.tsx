@@ -49,7 +49,8 @@ export function PoolsPanel() {
   }, [filters, query]);
 
   const members = useMemo(() => new Set(active?.memberIds ?? []), [active]);
-  const selectedAmongShown = shown.filter((character) => members.has(character.id)).length;
+  const shownIds = useMemo(() => shown.map((character) => character.id), [shown]);
+  const selectedAmongShown = shownIds.filter((id) => members.has(id)).length;
 
   // The name field of a freshly created pool takes focus so the default label can be replaced by
   // typing. Cleared once it has been focused, so switching pools later does not steal the caret.
@@ -115,6 +116,7 @@ export function PoolsPanel() {
           memberCount={members.size}
           members={members}
           shown={shown}
+          shownIds={shownIds}
           selectedAmongShown={selectedAmongShown}
           query={query}
           onQueryChange={setQuery}
@@ -144,6 +146,7 @@ function PoolEditor({
   memberCount,
   members,
   shown,
+  shownIds,
   selectedAmongShown,
   query,
   onQueryChange,
@@ -157,6 +160,7 @@ function PoolEditor({
   memberCount: number;
   members: Set<string>;
   shown: Character[];
+  shownIds: string[];
   selectedAmongShown: number;
   query: string;
   onQueryChange: (value: string) => void;
@@ -187,8 +191,21 @@ function PoolEditor({
     dispatch({ type: "togglePoolMember", poolId, characterId });
   }
 
-  // Deliberately roster-wide, not filter-scoped: the button says "all", so it must not depend on
-  // what the search box or filters happen to be hiding.
+  // Filtered scope: whatever the search box and filters currently let through.
+  function selectFiltered() {
+    dispatch({ type: "setPoolMembers", poolId, memberIds: [...new Set([...members, ...shownIds])] });
+  }
+
+  function deselectFiltered() {
+    const hide = new Set(shownIds);
+    dispatch({
+      type: "setPoolMembers",
+      poolId,
+      memberIds: [...members].filter((id) => !hide.has(id)),
+    });
+  }
+
+  // Roster scope: the label says "all", so it must not depend on what is currently hidden.
   function selectAll() {
     dispatch({ type: "setPoolMembers", poolId, memberIds: ALL_CHARACTER_IDS });
   }
@@ -243,7 +260,26 @@ function PoolEditor({
           <span className="text-xs text-muted">
             {plural(shown.length, "character")} match · {selectedAmongShown} selected
           </span>
-          <div className="ml-auto flex gap-1">
+          <div className="ml-auto flex flex-wrap gap-1">
+            <button
+              type="button"
+              className={BUTTON_GHOST}
+              onClick={selectFiltered}
+              disabled={shownIds.length === 0 || selectedAmongShown === shownIds.length}
+              title={`Add the ${shownIds.length} characters matching the current filters`}
+            >
+              Select filtered
+            </button>
+            <button
+              type="button"
+              className={BUTTON_GHOST}
+              onClick={deselectFiltered}
+              disabled={selectedAmongShown === 0}
+              title={`Remove the ${selectedAmongShown} selected characters matching the current filters`}
+            >
+              Deselect filtered
+            </button>
+            <span aria-hidden className="mx-0.5 h-4 w-px self-center bg-line" />
             <button
               type="button"
               className={BUTTON_GHOST}
