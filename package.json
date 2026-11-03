@@ -8,7 +8,8 @@
     "dev": "next dev",
     "build": "next build",
     "typecheck": "tsc --noEmit",
-    "data": "node scripts/fetch-characters.mjs"
+    "data": "node scripts/fetch-characters.mjs",
+    "test": "node --test tests/*.test.ts"
   },
   "devEngines": {
     "packageManager": {
