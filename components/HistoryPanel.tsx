@@ -64,7 +64,7 @@ export function HistoryPanel() {
                 </button>
               </header>
 
-              <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              <div className="mt-3 grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
                 {entry.teams.map((team, teamIndex) => {
                   const characters = team.memberIds
                     .map((id) => CHARACTER_BY_ID.get(id))

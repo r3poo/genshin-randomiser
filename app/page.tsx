@@ -21,7 +21,7 @@ export default function Page() {
   const [tab, setTab] = useState<TabId>("teams");
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-8 md:px-6 md:py-10">
+    <main className="mx-auto w-full px-4 py-8 md:px-6 md:py-10">
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-accent/80">

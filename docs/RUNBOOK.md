@@ -216,6 +216,10 @@ rely on `pnpm dev`):
   The name field is inline in the pool editor, takes focus when a pool is created, and a blank or
   whitespace-only name is normalised to `DEFAULT_POOL_NAME` ("Untitled pool") on blur — never
   stored empty.
+- **Layout is fluid, with no max-width cap.** `app/page.tsx` keeps only side padding
+  (`px-4 md:px-6`), so the page uses the whole window. Wide layouts stay readable by adding
+  columns instead of stretching cards: teams and history go to three columns at `2xl`, and the
+  roster grid gains cards automatically (`repeat(auto-fill, 10.5rem)`).
 - **Roster cards are fixed-size.** `components/PoolsPanel.tsx` lays the grid out as
   `repeat(auto-fill, 10.5rem)`, so cards never stretch — a wider window fits more columns instead.
   The portrait fills the card width (`Portrait` size `fill`), the card's rarity wash and rarity
