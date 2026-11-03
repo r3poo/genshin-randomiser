@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+/* Element colours. Tailwind v4 turns each --color-* token into utilities
+   (e.g. --color-pyro -> text-pyro / bg-pyro / border-pyro). */
+@theme {
+  --color-anemo: #74c2a8;
+  --color-geo: #fab632;
+  --color-electro: #af8ec1;
+  --color-dendro: #a5c83b;
+  --color-hydro: #4cc2f1;
+  --color-pyro: #ef7938;
+  --color-cryo: #9fd6e3;
+  --color-elementless: #9ca3af;
+
+  --color-ink: #0b0d12;
+  --color-panel: #141821;
+  --color-panel-2: #1b2130;
+  --color-line: #2a3242;
+  --color-muted: #8b95a7;
+  --color-accent: #d3bc8e;
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: #e8ecf4;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Native controls should follow the dark theme rather than flashing white. */
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
