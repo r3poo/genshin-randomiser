@@ -46,8 +46,7 @@ export function PoolsPanel() {
   }, [filters, query]);
 
   const members = useMemo(() => new Set(active?.memberIds ?? []), [active]);
-  const shownIds = useMemo(() => shown.map((c) => c.id), [shown]);
-  const selectedAmongShown = shownIds.filter((id) => members.has(id)).length;
+  const selectedAmongShown = shown.filter((character) => members.has(character.id)).length;
 
   // The name field of a freshly created pool takes focus so the default label can be replaced by
   // typing. Cleared once it has been focused, so switching pools later does not steal the caret.
@@ -113,7 +112,6 @@ export function PoolsPanel() {
           memberCount={members.size}
           members={members}
           shown={shown}
-          shownIds={shownIds}
           selectedAmongShown={selectedAmongShown}
           query={query}
           onQueryChange={setQuery}
@@ -143,7 +141,6 @@ function PoolEditor({
   memberCount,
   members,
   shown,
-  shownIds,
   selectedAmongShown,
   query,
   onQueryChange,
@@ -157,7 +154,6 @@ function PoolEditor({
   memberCount: number;
   members: Set<string>;
   shown: Character[];
-  shownIds: string[];
   selectedAmongShown: number;
   query: string;
   onQueryChange: (value: string) => void;
@@ -186,19 +182,6 @@ function PoolEditor({
 
   function toggle(characterId: string) {
     dispatch({ type: "togglePoolMember", poolId, characterId });
-  }
-
-  function selectShown() {
-    dispatch({ type: "setPoolMembers", poolId, memberIds: [...new Set([...members, ...shownIds])] });
-  }
-
-  function clearShown() {
-    const hide = new Set(shownIds);
-    dispatch({
-      type: "setPoolMembers",
-      poolId,
-      memberIds: [...members].filter((id) => !hide.has(id)),
-    });
   }
 
   function clearPool() {
@@ -251,17 +234,9 @@ function PoolEditor({
           <span className="text-xs text-muted">
             {plural(shown.length, "character")} match · {selectedAmongShown} selected
           </span>
-          <div className="ml-auto flex gap-1">
-            <button type="button" className={BUTTON_GHOST} onClick={selectShown}>
-              Select shown
-            </button>
-            <button type="button" className={BUTTON_GHOST} onClick={clearShown}>
-              Clear shown
-            </button>
-            <button type="button" className={BUTTON_GHOST} onClick={clearPool}>
-              Clear pool
-            </button>
-          </div>
+          <button type="button" className={`${BUTTON_GHOST} ml-auto`} onClick={clearPool}>
+            Clear pool
+          </button>
         </div>
 
         <FilterRow label="Element">
