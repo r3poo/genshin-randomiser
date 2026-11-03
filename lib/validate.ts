@@ -1,5 +1,5 @@
 import { isKnownCharacterId } from "./characters.ts";
-import { TEAM_SIZE_MAX, TEAM_SIZE_MIN } from "./types.ts";
+import { DEFAULT_POOL_NAME, TEAM_SIZE_MAX, TEAM_SIZE_MIN } from "./types.ts";
 import type { AppState, HistoryEntry, Pool, Team } from "./types.ts";
 
 export type IssueLevel = "error" | "warning";
@@ -104,7 +104,7 @@ function parsePools(raw: unknown, issues: Issue[]): Pool[] {
     usedIds.add(id);
 
     const name =
-      typeof entry.name === "string" && entry.name.trim() ? entry.name.trim() : "Untitled pool";
+      typeof entry.name === "string" && entry.name.trim() ? entry.name.trim() : DEFAULT_POOL_NAME;
     if (name !== entry.name) {
       issues.push({ level: "warning", message: `${path}: missing name, used "${name}"` });
     }

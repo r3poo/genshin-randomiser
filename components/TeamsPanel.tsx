@@ -19,8 +19,20 @@ import { TEAM_SIZE_MAX, TEAM_SIZE_MIN } from "@/lib/types";
 import type { Team } from "@/lib/types";
 import { Portrait } from "./Portrait";
 
-function configSignature(pools: unknown, teams: unknown, settings: unknown): string {
-  return JSON.stringify({ pools, teams, settings });
+/**
+ * Fingerprint of everything a draw depends on — deliberately excluding pool and team *names*.
+ * Renaming is cosmetic, so it must not discard the result the user is looking at.
+ */
+function configSignature(
+  pools: { id: string; memberIds: string[] }[],
+  teams: { id: string; size: number; poolIds: string[] }[],
+  settings: { uniqueAcrossTeams: boolean },
+): string {
+  return JSON.stringify({
+    pools: pools.map((pool) => [pool.id, pool.memberIds]),
+    teams: teams.map((team) => [team.id, team.size, team.poolIds]),
+    unique: settings.uniqueAcrossTeams,
+  });
 }
 
 export function TeamsPanel() {
@@ -86,7 +98,7 @@ export function TeamsPanel() {
             />
           </span>
           <span>
-            <span className="block text-sm text-slate-200">Unique members across teams</span>
+            <span className="block text-sm text-body">Unique members across teams</span>
             <span className="block text-xs text-muted">
               {settings.uniqueAcrossTeams
                 ? "A character appears in at most one team."
@@ -111,12 +123,12 @@ export function TeamsPanel() {
       </div>
 
       {errors.length > 0 ? (
-        <div className="rounded-xl border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-100">
+        <div className="rounded-xl border border-danger/40 bg-danger/10 px-4 py-3 text-sm text-danger">
           <p className="font-medium">Could not randomise</p>
           <ul className="mt-1.5 space-y-1 text-xs">
             {errors.map((error) => (
               <li key={error} className="flex gap-2">
-                <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-rose-400" aria-hidden />
+                <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-danger" aria-hidden />
                 <span>{error}</span>
               </li>
             ))}
@@ -126,7 +138,7 @@ export function TeamsPanel() {
 
       {teams.length === 0 ? (
         <div className={`${PANEL} px-6 py-10 text-center`}>
-          <p className="text-sm text-slate-200">No teams configured yet.</p>
+          <p className="text-sm text-body">No teams configured yet.</p>
           <p className="mt-1 text-xs text-muted">
             Add a team, point it at one or more pools, then randomise.
           </p>
@@ -147,7 +159,7 @@ export function TeamsPanel() {
 
       <p className="text-xs text-muted">
         Every successful draw is recorded in{" "}
-        <span className="text-slate-300">History</span> with its timestamp.
+        <span className="text-soft">History</span> with its timestamp.
       </p>
     </div>
   );
@@ -177,7 +189,7 @@ function TeamCard({
             dispatch({ type: "renameTeam", teamId: team.id, name: event.target.value })
           }
           aria-label="Team name"
-          className="min-w-0 flex-1 rounded-md border border-transparent bg-transparent px-1 py-0.5 text-base font-semibold text-slate-100 hover:border-line focus:border-accent/70 focus:bg-ink focus:outline-none"
+          className="min-w-0 flex-1 rounded-md border border-transparent bg-transparent px-1 py-0.5 text-base font-semibold text-strong hover:border-line focus:border-accent/70 focus:bg-ink focus:outline-none"
         />
         <div
           className="flex shrink-0 items-center rounded-lg border border-line bg-ink p-0.5"
@@ -194,7 +206,7 @@ function TeamCard({
                 className={`size-6 rounded-md text-xs transition-colors ${
                   team.size === size
                     ? "bg-accent text-ink"
-                    : "text-muted hover:bg-panel-2 hover:text-slate-200"
+                    : "text-muted hover:bg-panel-2 hover:text-body"
                 }`}
               >
                 {size}
@@ -218,7 +230,7 @@ function TeamCard({
           Draw from
         </p>
         {pools.length === 0 ? (
-          <p className="text-xs text-amber-300/90">No pools exist yet — create one first.</p>
+          <p className="text-xs text-warning/90">No pools exist yet — create one first.</p>
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {pools.map((pool) => {
@@ -234,7 +246,7 @@ function TeamCard({
                   className={`${CHIP} ${on ? CHIP_ON : CHIP_OFF}`}
                 >
                   <span
-                    className={`size-1.5 rounded-full ${on ? "bg-accent" : "bg-slate-600"}`}
+                    className={`size-1.5 rounded-full ${on ? "bg-accent" : "bg-line"}`}
                     aria-hidden
                   />
                   {pool.name}
@@ -244,7 +256,7 @@ function TeamCard({
             })}
           </div>
         )}
-        <p className={`mt-2 text-xs ${noPools || short ? "text-amber-300/90" : "text-muted"}`}>
+        <p className={`mt-2 text-xs ${noPools || short ? "text-warning/90" : "text-muted"}`}>
           {noPools
             ? "Select at least one pool."
             : short
@@ -262,7 +274,7 @@ function TeamCard({
               {character ? (
                 <>
                   <Portrait character={character} size="md" />
-                  <span className="w-full truncate text-center text-[11px] text-slate-300">
+                  <span className="w-full truncate text-center text-[11px] text-soft">
                     {character.name}
                   </span>
                 </>

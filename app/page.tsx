@@ -27,7 +27,7 @@ export default function Page() {
           <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-accent/80">
             Genshin Impact · team builder
           </p>
-          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-100 md:text-3xl">
+          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-strong md:text-3xl">
             Team Randomiser
           </h1>
           <p className="mt-1.5 max-w-xl text-sm text-muted">
@@ -58,8 +58,8 @@ export default function Page() {
             onClick={() => setTab(entry.id)}
             className={`-mb-px border-b-2 px-3 py-2 text-sm transition-colors ${
               tab === entry.id
-                ? "border-accent text-slate-100"
-                : "border-transparent text-muted hover:text-slate-300"
+                ? "border-accent text-strong"
+                : "border-transparent text-muted hover:text-soft"
             }`}
           >
             {entry.label}
@@ -104,7 +104,7 @@ export default function Page() {
           Unofficial fan project. Character data and artwork are property of HoYoverse and are used
           under the same non-commercial fan-use terms as other community tools. Data snapshot:{" "}
           <a
-            className="text-slate-400 underline decoration-line underline-offset-2 hover:text-accent"
+            className="text-soft underline decoration-line underline-offset-2 hover:text-accent"
             href="https://github.com/dvaJi/genshin-data"
             target="_blank"
             rel="noreferrer"
@@ -113,7 +113,7 @@ export default function Page() {
           </a>
           , artwork from{" "}
           <a
-            className="text-slate-400 underline decoration-line underline-offset-2 hover:text-accent"
+            className="text-soft underline decoration-line underline-offset-2 hover:text-accent"
             href="https://gi.yatta.moe"
             target="_blank"
             rel="noreferrer"

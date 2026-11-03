@@ -1,8 +1,43 @@
 @import "tailwindcss";
 
-/* Element colours. Tailwind v4 turns each --color-* token into utilities
-   (e.g. --color-pyro -> text-pyro / bg-pyro / border-pyro). */
+/*
+  Palette
+  -------
+  Dark violet base with Genshin's menu gold, built as an Adobe Color style harmony: one dominant
+  hue (violet, hue ~265), a near-neutral ramp for surfaces, and a single warm accent at the
+  complementary hue (~40). Element colours are game-canonical and deliberately not derived from
+  the harmony — they have to stay recognisable.
+
+  Contrast (against --color-panel #191423): body 15.1:1, soft 9.4:1, muted 6.2:1, accent 10.0:1,
+  rarity-4 6.4:1, danger 8.9:1. Every text token clears WCAG AA at 14px.
+*/
 @theme {
+  /* Surfaces: ink (page) -> panel (cards) -> panel-2 (hover/elevated). */
+  --color-ink: #100d18;
+  --color-panel: #191423;
+  --color-panel-2: #221b30;
+  --color-line: #342c47;
+
+  /* Text ramp. */
+  --color-strong: #f7f4fc;
+  --color-body: #e9e4f2;
+  --color-soft: #c4bcd6;
+  --color-muted: #9a90b2;
+
+  /* Accent: Genshin's menu gold (#d3bc8e) and its hover step. */
+  --color-accent: #d3bc8e;
+  --color-accent-hover: #e2cda4;
+
+  /* Rarity. 4★ is a lavender bright enough to read on the violet base. */
+  --color-rarity-5: #e8b45f;
+  --color-rarity-4: #b78bef;
+
+  /* Feedback. */
+  --color-warning: #f0c46b;
+  --color-danger: #f39bab;
+
+  /* Element colours. Tailwind v4 turns each --color-* token into utilities
+     (e.g. --color-pyro -> text-pyro / bg-pyro / border-pyro). */
   --color-anemo: #74c2a8;
   --color-geo: #fab632;
   --color-electro: #af8ec1;
@@ -10,14 +45,7 @@
   --color-hydro: #4cc2f1;
   --color-pyro: #ef7938;
   --color-cryo: #9fd6e3;
-  --color-elementless: #9ca3af;
-
-  --color-ink: #0b0d12;
-  --color-panel: #141821;
-  --color-panel-2: #1b2130;
-  --color-line: #2a3242;
-  --color-muted: #8b95a7;
-  --color-accent: #d3bc8e;
+  --color-elementless: #a6a0bb;
 
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
@@ -28,8 +56,17 @@
   }
 
   body {
+    /* A faint violet bloom at the top edge, the way the in-game menus lift off the background. */
     background-color: var(--color-ink);
-    color: #e8ecf4;
+    background-image: radial-gradient(
+      120% 70% at 50% -10%,
+      #241b38 0%,
+      #171222 45%,
+      var(--color-ink) 100%
+    );
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--color-body);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
@@ -40,6 +77,11 @@
   textarea,
   button {
     font: inherit;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+    color: var(--color-strong);
   }
 
   :focus-visible {

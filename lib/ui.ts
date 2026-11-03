@@ -27,7 +27,7 @@ export const ELEMENT_BG: Record<Element, string> = {
 };
 
 export const RARITY_LABEL: Record<Rarity, string> = { 5: "5★", 4: "4★" };
-export const RARITY_TEXT: Record<Rarity, string> = { 5: "text-accent", 4: "text-muted" };
+export const RARITY_TEXT: Record<Rarity, string> = { 5: "text-rarity-5", 4: "text-rarity-4" };
 export const GENDER_LABEL: Record<Gender, string> = {
   Male: "Male",
   Female: "Female",
@@ -43,18 +43,18 @@ export const WEAPON_LABEL: Record<WeaponType, string> = {
 };
 
 export const BUTTON =
-  "inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-panel px-3 py-1.5 text-sm text-slate-200 transition-colors hover:border-accent/60 hover:bg-panel-2 disabled:cursor-not-allowed disabled:opacity-40";
+  "inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-panel px-3 py-1.5 text-sm text-body transition-colors hover:border-accent/60 hover:bg-panel-2 disabled:cursor-not-allowed disabled:opacity-40";
 export const BUTTON_PRIMARY =
-  "inline-flex items-center justify-center gap-2 rounded-lg border border-accent/70 bg-accent px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-[#e2cda4] disabled:cursor-not-allowed disabled:opacity-40";
+  "inline-flex items-center justify-center gap-2 rounded-lg border border-accent/70 bg-accent px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-40";
 export const BUTTON_GHOST =
-  "inline-flex items-center justify-center gap-1.5 rounded-md px-2 py-1 text-xs text-muted transition-colors hover:text-slate-200";
+  "inline-flex items-center justify-center gap-1.5 rounded-md px-2 py-1 text-xs text-muted transition-colors hover:text-body";
 export const INPUT =
-  "w-full rounded-lg border border-line bg-ink px-3 py-1.5 text-sm text-slate-100 placeholder:text-muted/70 focus:border-accent/70 focus:outline-none";
+  "w-full rounded-lg border border-line bg-ink px-3 py-1.5 text-sm text-strong placeholder:text-muted/70 focus:border-accent/70 focus:outline-none";
 export const PANEL = "rounded-xl border border-line bg-panel";
 export const CHIP =
   "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition-colors";
-export const CHIP_ON = "border-accent/60 bg-accent/15 text-slate-100";
-export const CHIP_OFF = "border-line bg-ink text-muted hover:border-line/80 hover:text-slate-300";
+export const CHIP_ON = "border-accent/60 bg-accent/15 text-strong";
+export const CHIP_OFF = "border-line bg-ink text-muted hover:border-line/80 hover:text-soft";
 
 export function formatTimestamp(iso: string): string {
   return new Intl.DateTimeFormat(undefined, {

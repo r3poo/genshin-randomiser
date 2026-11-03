@@ -103,8 +103,8 @@ export function DataTransfer() {
           role="status"
           className={`max-w-md rounded-lg border px-3 py-2 text-left text-xs ${
             report.kind === "ok"
-              ? "border-accent/30 bg-accent/5 text-slate-200"
-              : "border-rose-500/40 bg-rose-500/10 text-rose-100"
+              ? "border-accent/30 bg-accent/5 text-body"
+              : "border-danger/40 bg-danger/10 text-danger"
           }`}
         >
           <div className="flex items-start justify-between gap-3">
@@ -124,7 +124,7 @@ export function DataTransfer() {
                 <li key={index} className="flex gap-2">
                   <span
                     className={`mt-1.5 size-1.5 shrink-0 rounded-full ${
-                      issue.level === "error" ? "bg-rose-400" : "bg-slate-500"
+                      issue.level === "error" ? "bg-danger" : "bg-muted"
                     }`}
                     aria-hidden
                   />

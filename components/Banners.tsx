@@ -12,7 +12,7 @@ function IssueList({ issues }: { issues: Issue[] }) {
         <ul className="space-y-1">
           {errors.map((issue, index) => (
             <li key={`e${index}`} className="flex gap-2">
-              <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-rose-400" aria-hidden />
+              <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-danger" aria-hidden />
               <span>{issue.message}</span>
             </li>
           ))}
@@ -22,7 +22,7 @@ function IssueList({ issues }: { issues: Issue[] }) {
         <ul className="space-y-1 text-muted">
           {warnings.map((issue, index) => (
             <li key={`w${index}`} className="flex gap-2">
-              <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-slate-500" aria-hidden />
+              <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-muted" aria-hidden />
               <span>{issue.message}</span>
             </li>
           ))}
@@ -44,9 +44,9 @@ function Banner({
   onDismiss?: () => void;
 }) {
   const tones = {
-    warn: "border-amber-500/40 bg-amber-500/10 text-amber-100",
-    error: "border-rose-500/40 bg-rose-500/10 text-rose-100",
-    info: "border-accent/30 bg-accent/5 text-slate-200",
+    warn: "border-warning/40 bg-warning/10 text-warning",
+    error: "border-danger/40 bg-danger/10 text-danger",
+    info: "border-accent/30 bg-accent/5 text-body",
   } as const;
 
   return (

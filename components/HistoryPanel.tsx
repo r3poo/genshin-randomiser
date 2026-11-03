@@ -32,7 +32,7 @@ export function HistoryPanel() {
 
       {history.length === 0 ? (
         <div className={`${PANEL} px-6 py-12 text-center`}>
-          <p className="text-sm text-slate-200">No generations yet</p>
+          <p className="text-sm text-body">No generations yet</p>
           <p className="mt-1 text-xs text-muted">
             Randomise a team on the Teams tab and the result will be listed here.
           </p>
@@ -44,7 +44,7 @@ export function HistoryPanel() {
               <header className="flex flex-wrap items-center gap-2">
                 <time
                   dateTime={entry.createdAt}
-                  className="text-sm font-medium text-slate-200"
+                  className="text-sm font-medium text-body"
                 >
                   {formatTimestamp(entry.createdAt)}
                 </time>
@@ -71,7 +71,7 @@ export function HistoryPanel() {
                     .filter((character) => character !== undefined);
                   return (
                     <div key={`${entry.id}-${teamIndex}`} className="rounded-lg bg-ink/60 p-3">
-                      <p className="mb-2 truncate text-xs font-medium text-slate-300">
+                      <p className="mb-2 truncate text-xs font-medium text-soft">
                         {team.teamName}
                       </p>
                       <div className="flex flex-wrap gap-2">

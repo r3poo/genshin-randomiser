@@ -81,6 +81,34 @@ initials.
 To pin the roster to a specific upstream revision: `node scripts/fetch-characters.mjs --sha <commit>`.
 Source provenance and the research behind these URLs live in `docs/data-sources.md`.
 
+## Theming
+
+All colours are tokens in `app/globals.css` under `@theme`; Tailwind v4 turns each one into
+utilities (`--color-panel-2` → `bg-panel-2`, `text-panel-2`, …). Components must use those
+utilities, never raw palette values — a hardcoded `bg-slate-700` would survive a theme change and
+quietly break the dark-violet base.
+
+| Token | Role |
+|---|---|
+| `ink`, `panel`, `panel-2` | Page, card, hover/elevated surfaces |
+| `line` | Borders and dividers |
+| `strong`, `body`, `soft`, `muted` | Text ramp, brightest to dimmest |
+| `accent`, `accent-hover` | Genshin menu gold: focus rings, selected chips, primary buttons |
+| `rarity-5`, `rarity-4` | 5★ gold and 4★ lavender |
+| `warning`, `danger` | Banners, error reports, validation issues |
+| `anemo`…`elementless` | Game-canonical element colours, not derived from the base palette |
+
+Two rules when editing the palette:
+
+1. Keep every text token at WCAG AA (4.5:1) against `panel`, not against `ink`. Cards are where
+   text actually sits.
+2. Element and rarity colours must stay distinguishable from each other and from `accent`;
+   `text-rarity-4` sits close to the violet base on purpose but stays lighter than `line`.
+
+The palette is a single-hue harmony (violet base ≈265°, warm accent ≈40°) in the Adobe Color
+sense: one dominant hue, a neutral surface ramp, one complementary accent. Element colours are
+the deliberate exception.
+
 ## User data
 
 - **Storage key:** `genshin-randomiser:state:v1`. Payload shape: `{ pools, teams, settings, history }`.
@@ -180,8 +208,14 @@ rely on `pnpm dev`):
 - **Hydration order.** State is seeded synchronously (`initialState()`) and replaced from storage
   in an effect. Panels render only after `hydrated`, so the server-rendered HTML never claims to
   know a user's saved data.
-- **Results are tied to their inputs.** A draw is hidden as soon as pools, team sizes or the
-  uniqueness setting change; the history entry stays.
+- **Pool names are labels, not identity.** `id` is the key everywhere (teams reference pool ids,
+  history does not reference pools at all), so renaming a pool cannot break a team or a saved draw.
+  The name field is inline in the pool editor, takes focus when a pool is created, and a blank or
+  whitespace-only name is normalised to `DEFAULT_POOL_NAME` ("Untitled pool") on blur — never
+  stored empty.
+- **Results are tied to their inputs.** A draw is hidden as soon as pool membership, team sizes or
+  the uniqueness setting change; the history entry stays. Renaming a pool or a team does not hide
+  it — `configSignature` in `components/TeamsPanel.tsx` fingerprints ids and membership only.
 - **Unique mode is a matching problem, not a greedy loop.** Teams that share pools are solved with
   augmenting paths, and an impossible configuration reports which teams cannot be filled instead of
   silently returning short teams.

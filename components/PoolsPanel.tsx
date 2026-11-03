@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CHARACTERS } from "@/lib/characters";
 import { allFilters, filterCharacters, toggleInOrder, type Filters } from "@/lib/filters";
 import { elementIcon, weaponIcon } from "@/lib/assets";
@@ -18,6 +18,7 @@ import {
   RARITY_LABEL,
   plural,
 } from "@/lib/ui";
+import { DEFAULT_POOL_NAME } from "@/lib/types";
 import { ELEMENTS, GENDERS, RARITIES, WEAPONS } from "@/lib/types";
 import type { Character } from "@/lib/types";
 import { Portrait } from "./Portrait";
@@ -47,10 +48,16 @@ export function PoolsPanel() {
   const shownIds = useMemo(() => shown.map((c) => c.id), [shown]);
   const selectedAmongShown = shownIds.filter((id) => members.has(id)).length;
 
+  // The name field of a freshly created pool takes focus so the default label can be replaced by
+  // typing. Cleared once it has been focused, so switching pools later does not steal the caret.
+  const [focusNameFor, setFocusNameFor] = useState<string | null>(null);
+  const clearFocusName = useCallback(() => setFocusNameFor(null), []);
+
   function addPool() {
     const poolId = newId("pool");
     dispatch({ type: "addPool", poolId });
     setActiveId(poolId);
+    setFocusNameFor(poolId);
   }
 
   return (
@@ -78,11 +85,11 @@ export function PoolsPanel() {
                     aria-current={isActive ? "true" : undefined}
                     className={`flex w-full items-center justify-between gap-2 border-l-2 px-3 py-2 text-left text-sm transition-colors ${
                       isActive
-                        ? "border-accent bg-panel-2 text-slate-100"
-                        : "border-transparent text-slate-300 hover:bg-panel-2/60"
+                        ? "border-accent bg-panel-2 text-strong"
+                        : "border-transparent text-soft hover:bg-panel-2/60"
                     }`}
                   >
-                    <span className="truncate">{pool.name || "Untitled pool"}</span>
+                    <span className="truncate">{pool.name || DEFAULT_POOL_NAME}</span>
                     <span className="shrink-0 text-xs text-muted">{pool.memberIds.length}</span>
                   </button>
                 </li>
@@ -97,8 +104,11 @@ export function PoolsPanel() {
 
       {active ? (
         <PoolEditor
+          key={active.id}
           poolId={active.id}
           name={active.name}
+          focusName={active.id === focusNameFor}
+          onNameFocused={clearFocusName}
           memberCount={members.size}
           members={members}
           shown={shown}
@@ -111,7 +121,7 @@ export function PoolsPanel() {
         />
       ) : (
         <div className={`${PANEL} flex flex-col items-center justify-center gap-3 px-6 py-16 text-center`}>
-          <p className="text-sm text-slate-200">No pool selected</p>
+          <p className="text-sm text-body">No pool selected</p>
           <p className="max-w-sm text-xs text-muted">
             Pools are reusable character sets. Create one to start choosing characters.
           </p>
@@ -127,6 +137,8 @@ export function PoolsPanel() {
 function PoolEditor({
   poolId,
   name,
+  focusName,
+  onNameFocused,
   memberCount,
   members,
   shown,
@@ -139,6 +151,8 @@ function PoolEditor({
 }: {
   poolId: string;
   name: string;
+  focusName: boolean;
+  onNameFocused: () => void;
   memberCount: number;
   members: Set<string>;
   shown: Character[];
@@ -150,6 +164,24 @@ function PoolEditor({
   onFiltersChange: (filters: Filters) => void;
 }) {
   const { dispatch } = useStore();
+  const nameRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!focusName) return;
+    const input = nameRef.current;
+    if (input) {
+      input.focus();
+      input.select();
+    }
+    onNameFocused();
+  }, [focusName, onNameFocused]);
+
+  // Blank names are allowed while typing, but the pool is never stored without a label.
+  function commitName() {
+    const trimmed = name.trim();
+    if (trimmed === name) return;
+    dispatch({ type: "renamePool", poolId, name: trimmed || DEFAULT_POOL_NAME });
+  }
 
   function toggle(characterId: string) {
     dispatch({ type: "togglePoolMember", poolId, characterId });
@@ -176,18 +208,29 @@ function PoolEditor({
 
   return (
     <section className={`${PANEL} flex flex-col`}>
-      <header className="flex flex-wrap items-center gap-3 border-b border-line/70 p-4">
-        <input
-          value={name}
-          onChange={(event) => dispatch({ type: "renamePool", poolId, name: event.target.value })}
-          aria-label="Pool name"
-          placeholder="Pool name"
-          className="min-w-0 flex-1 rounded-md border border-transparent bg-transparent px-1 py-0.5 text-base font-semibold text-slate-100 placeholder:text-muted hover:border-line focus:border-accent/70 focus:bg-ink focus:outline-none"
-        />
-        <span className="text-xs text-muted">{plural(memberCount, "character")}</span>
+      <header className="flex flex-wrap items-end gap-3 border-b border-line/70 p-4">
+        <label className="flex min-w-0 flex-1 basis-56 flex-col gap-1">
+          <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted">
+            Pool name
+          </span>
+          <input
+            ref={nameRef}
+            value={name}
+            onChange={(event) => dispatch({ type: "renamePool", poolId, name: event.target.value })}
+            onBlur={commitName}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") event.currentTarget.blur();
+            }}
+            aria-label="Pool name"
+            placeholder="e.g. On-field DPS, Supports, Friendship"
+            maxLength={60}
+            className={`${INPUT} font-semibold`}
+          />
+        </label>
+        <span className="pb-2 text-xs text-muted">{plural(memberCount, "character")}</span>
         <button
           type="button"
-          className={BUTTON_GHOST}
+          className={`${BUTTON_GHOST} mb-1`}
           onClick={() => dispatch({ type: "deletePool", poolId })}
         >
           Delete pool
@@ -324,7 +367,7 @@ function PoolEditor({
                     </span>
                     <span
                       className={`w-full truncate text-center text-[11px] ${
-                        selected ? "text-slate-100" : "text-slate-300"
+                        selected ? "text-strong" : "text-soft"
                       }`}
                     >
                       {character.name}
