@@ -71,12 +71,22 @@ function Banner({
   );
 }
 
+const RESET_HINT =
+  "Clearing this site's data and cookies, then reloading, often fixes it — export your setup first if you have one.";
+
 /** Storage and load-time problems. Everything here is a state the user cannot fix in-app. */
 export function Banners() {
-  const { storageStatus, storageDetail, saveError, loadIssues, dismissLoadIssues } = useStore();
+  const { hydrated, storageStatus, storageDetail, saveError, loadIssues, dismissLoadIssues } =
+    useStore();
+
+  // The probe only runs on mount, so before that the status is a placeholder. Rendering nothing
+  // until it is real avoids a flash of "no local storage" on every single page load, and means a
+  // healthy session reserves no space for banners it never shows.
+  if (!hydrated) return null;
+  if (!saveError && !loadIssues.length && storageStatus === "available") return null;
 
   return (
-    <div className="space-y-3">
+    <div className="mt-5 space-y-3">
       {storageStatus === "denied" ? (
         <Banner
           tone="warn"
@@ -87,6 +97,7 @@ export function Banners() {
             Import and export still work, so use them to keep a copy.
             {storageDetail ? ` (${storageDetail})` : null}
           </p>
+          <p className="mt-1 text-xs opacity-90">{RESET_HINT}</p>
         </Banner>
       ) : null}
 
@@ -96,6 +107,7 @@ export function Banners() {
             Nothing will be saved between visits. Import and export still work.
             {storageDetail ? ` (${storageDetail})` : null}
           </p>
+          <p className="mt-1 text-xs opacity-90">{RESET_HINT}</p>
         </Banner>
       ) : null}
 

@@ -1,34 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { Banners } from "@/components/Banners";
 import { DataTransfer } from "@/components/DataTransfer";
 import { HistoryPanel } from "@/components/HistoryPanel";
 import { PoolsPanel } from "@/components/PoolsPanel";
 import { TeamsPanel, type Draw } from "@/components/TeamsPanel";
 import { useStore } from "@/lib/store";
-import { DEFAULT_TAB, TABS, hashForTab, tabFromHash, type TabId } from "@/lib/tabs";
+import {
+  DEFAULT_TAB,
+  TABS,
+  currentTab,
+  navigateToTab,
+  subscribeToTab,
+  type TabId,
+} from "@/lib/tabs";
 
 export default function Page() {
   const { hydrated, state } = useStore();
-  const [tab, setTab] = useState<TabId>(DEFAULT_TAB);
-
-  // The tab is URL state, so it survives a reload without touching storage. The first render has
-  // to match the prerendered HTML (Teams), so the hash is read in an effect — by then the panels
-  // are still behind the hydration skeleton, so there is nothing to flash.
-  useEffect(() => {
-    setTab(tabFromHash(window.location.hash));
-    const onHashChange = () => setTab(tabFromHash(window.location.hash));
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
-  }, []);
-
-  function selectTab(id: TabId) {
-    setTab(id);
-    const hash = hashForTab(id);
-    // pushState keeps the back button useful and does not fire hashchange, so no feedback loop.
-    if (window.location.hash !== hash) window.history.pushState(null, "", hash);
-  }
+  // The tab is URL state, so it survives a reload without touching storage. The server snapshot
+  // keeps hydration honest (the prerendered HTML says Teams); React then re-reads the live hash and
+  // re-renders in the same commit, so a reload on #pools never paints Teams first.
+  const tab = useSyncExternalStore<TabId>(subscribeToTab, currentTab, () => DEFAULT_TAB);
   // Held here rather than inside TeamsPanel: the tab switcher unmounts inactive panels, and a
   // draw must survive a round trip to the pools or history tab.
   const [draw, setDraw] = useState<Draw | null>(null);
@@ -51,9 +44,7 @@ export default function Page() {
         <DataTransfer />
       </header>
 
-      <div className="mt-5">
-        <Banners />
-      </div>
+      <Banners />
 
       <nav
         className="mt-6 flex gap-1 border-b border-line"
@@ -68,7 +59,7 @@ export default function Page() {
             aria-selected={tab === entry.id}
             aria-controls={`panel-${entry.id}`}
             id={`tab-${entry.id}`}
-            onClick={() => selectTab(entry.id)}
+            onClick={() => navigateToTab(entry.id)}
             className={`-mb-px border-b-2 px-3 py-2 text-sm transition-colors ${
               tab === entry.id
                 ? "border-accent text-strong"
