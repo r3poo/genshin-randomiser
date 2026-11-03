@@ -313,22 +313,26 @@ function TeamCard({
         </p>
       </div>
 
-      <div className="mt-auto flex flex-wrap gap-2 border-t border-line/70 pt-3">
+      {/*
+        Four fixed columns whatever the team size, so a 2-member team draws at the same scale as a
+        full one and every team card lines up with the next. Unfilled slots keep their column.
+      */}
+      <div className="mt-auto grid grid-cols-4 gap-2 border-t border-line/70 pt-3">
         {Array.from({ length: team.size }, (_, index) => {
           const id = result?.[index];
           const character = id ? CHARACTER_BY_ID.get(id) : undefined;
           return (
-            <div key={index} className="flex w-16 flex-col items-center gap-1">
+            <div key={index} className="flex min-w-0 flex-col items-center gap-1">
               {character ? (
                 <>
-                  <Portrait character={character} size="md" />
+                  <Portrait character={character} size="fill" />
                   <span className="w-full truncate text-center text-[11px] text-soft">
                     {character.name}
                   </span>
                 </>
               ) : (
                 <>
-                  <span className="size-12 rounded-full border border-dashed border-line/80" />
+                  <span className="aspect-square w-full rounded-full border border-dashed border-line/80" />
                   <span className="text-[11px] text-muted/60">empty</span>
                 </>
               )}

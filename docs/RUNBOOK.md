@@ -225,6 +225,10 @@ rely on `pnpm dev`):
   The portrait fills the card width (`Portrait` size `fill`), the card's rarity wash and rarity
   text come from `rarity-5` / `rarity-4`, and selection is shown by the card border and tint only;
   there is no separate marker on the portrait.
+- **Team result slots are a four-column grid.** The draw area in `components/TeamsPanel.tsx` is
+  `grid grid-cols-4` regardless of team size, so a 2-member team's portraits are the same size as
+  a 4-member team's and every team card lines up. Empty slots keep their column as dashed
+  placeholders rather than collapsing.
 - **Results are tied to their inputs.** A draw is hidden as soon as pool membership, team sizes or
   the uniqueness setting change; the history entry stays. Renaming a pool or a team does not hide
   it — `configSignature` in `components/TeamsPanel.tsx` fingerprints ids and membership only.
