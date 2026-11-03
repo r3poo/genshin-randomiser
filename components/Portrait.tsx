@@ -3,13 +3,25 @@
 import { useState } from "react";
 import { characterIcon } from "@/lib/assets";
 import { ELEMENT_BG, ELEMENT_TEXT } from "@/lib/ui";
-import type { Character } from "@/lib/types";
+import type { Character, Rarity } from "@/lib/types";
 
 const SIZES = {
   sm: "size-8 text-[10px]",
   md: "size-12 text-xs",
   lg: "size-16 text-sm",
+  /** Fills its container and stays square — used by the pool picker cards. */
+  fill: "w-full aspect-square text-xl",
 } as const;
+
+/**
+ * Rarity wash behind the art, the way the in-game character cards tint their frames: gold for
+ * 5★, violet for 4★. Applied to the fallback initials too, so a missing portrait still reads as
+ * the right rarity.
+ */
+const RARITY_FRAME: Record<Rarity, string> = {
+  5: "border-rarity-5/60 bg-linear-to-b from-rarity-5/40 via-rarity-5/15 to-transparent",
+  4: "border-rarity-4/60 bg-linear-to-b from-rarity-4/40 via-rarity-4/15 to-transparent",
+};
 
 function initials(name: string): string {
   const cleaned = name.replace(/\(.*?\)/g, "").trim();
@@ -37,6 +49,7 @@ export function Portrait({
 }) {
   const [failed, setFailed] = useState(false);
   const src = characterIcon(character.icon);
+  const frame = RARITY_FRAME[character.rarity];
 
   return (
     <span className="relative inline-flex shrink-0">
@@ -50,12 +63,12 @@ export function Portrait({
           loading="lazy"
           decoding="async"
           onError={() => setFailed(true)}
-          className={`${SIZES[size]} rounded-full border border-white/10 bg-panel-2 object-cover`}
+          className={`${SIZES[size]} rounded-full border object-cover ${frame}`}
         />
       ) : (
         <span
           aria-hidden
-          className={`${SIZES[size]} inline-flex items-center justify-center rounded-full border border-white/10 bg-panel-2 font-semibold uppercase ${ELEMENT_TEXT[character.element]}`}
+          className={`${SIZES[size]} inline-flex items-center justify-center rounded-full border font-semibold uppercase ${frame} ${ELEMENT_TEXT[character.element]}`}
         >
           {initials(character.name)}
         </span>

@@ -87,6 +87,7 @@ export interface AppState {
 }
 
 export const DEFAULT_POOL_NAME = "Untitled pool";
+export const DEFAULT_TEAM_NAME = "Untitled team";
 
 export const TEAM_SIZE_MIN = 1;
 export const TEAM_SIZE_MAX = 4;

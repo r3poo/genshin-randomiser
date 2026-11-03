@@ -29,7 +29,7 @@ export type Action =
   | { type: "deletePool"; poolId: string }
   | { type: "togglePoolMember"; poolId: string; characterId: string }
   | { type: "setPoolMembers"; poolId: string; memberIds: string[] }
-  | { type: "addTeam" }
+  | { type: "addTeam"; teamId?: string }
   | { type: "renameTeam"; teamId: string; name: string }
   | { type: "deleteTeam"; teamId: string }
   | { type: "setTeamSize"; teamId: string; size: number }
@@ -103,7 +103,12 @@ export function reducer(state: AppState, action: Action): AppState {
 
     case "addTeam": {
       const index = state.teams.length + 1;
-      const team: Team = { id: newId("team"), name: `Team ${index}`, size: 4, poolIds: [] };
+      const team: Team = {
+        id: action.teamId ?? newId("team"),
+        name: `Team ${index}`,
+        size: 4,
+        poolIds: [],
+      };
       return { ...state, teams: [...state.teams, team] };
     }
 

@@ -94,7 +94,7 @@ quietly break the dark-violet base.
 | `line` | Borders and dividers |
 | `strong`, `body`, `soft`, `muted` | Text ramp, brightest to dimmest |
 | `accent`, `accent-hover` | Genshin menu gold: focus rings, selected chips, primary buttons |
-| `rarity-5`, `rarity-4` | 5★ gold and 4★ lavender |
+| `rarity-5`, `rarity-4` | 5★ gold and 4★ lavender: rarity text and the portrait frame wash in `components/Portrait.tsx` |
 | `warning`, `danger` | Banners, error reports, validation issues |
 | `anemo`…`elementless` | Game-canonical element colours, not derived from the base palette |
 
@@ -208,11 +208,19 @@ rely on `pnpm dev`):
 - **Hydration order.** State is seeded synchronously (`initialState()`) and replaced from storage
   in an effect. Panels render only after `hydrated`, so the server-rendered HTML never claims to
   know a user's saved data.
-- **Pool names are labels, not identity.** `id` is the key everywhere (teams reference pool ids,
-  history does not reference pools at all), so renaming a pool cannot break a team or a saved draw.
+- **Pool and team names are labels, not identity.** `id` is the key everywhere (teams reference
+  pool ids, history does not reference pools at all), so renaming cannot break a team or a saved
+  draw. Both editors expose the name as a labelled field (`Team name`, `Pool name`) that takes
+  focus when the item is created; a blank name is normalised to `DEFAULT_TEAM_NAME` /
+  `DEFAULT_POOL_NAME` from `lib/types.ts` on blur.
   The name field is inline in the pool editor, takes focus when a pool is created, and a blank or
   whitespace-only name is normalised to `DEFAULT_POOL_NAME` ("Untitled pool") on blur — never
   stored empty.
+- **Roster cards are fixed-size.** `components/PoolsPanel.tsx` lays the grid out as
+  `repeat(auto-fill, 10.5rem)`, so cards never stretch — a wider window fits more columns instead.
+  The portrait fills the card width (`Portrait` size `fill`), the card's rarity wash and rarity
+  text come from `rarity-5` / `rarity-4`, and selection is shown by the card border and tint only;
+  there is no separate marker on the portrait.
 - **Results are tied to their inputs.** A draw is hidden as soon as pool membership, team sizes or
   the uniqueness setting change; the history entry stays. Renaming a pool or a team does not hide
   it — `configSignature` in `components/TeamsPanel.tsx` fingerprints ids and membership only.

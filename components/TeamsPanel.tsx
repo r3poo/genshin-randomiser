@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CHARACTER_BY_ID } from "@/lib/characters";
 import { newId } from "@/lib/ids";
 import { generateTeams, teamCandidates, type GeneratedTeam } from "@/lib/randomise";
@@ -12,10 +12,11 @@ import {
   CHIP,
   CHIP_OFF,
   CHIP_ON,
+  INPUT,
   PANEL,
   plural,
 } from "@/lib/ui";
-import { TEAM_SIZE_MAX, TEAM_SIZE_MIN } from "@/lib/types";
+import { DEFAULT_TEAM_NAME, TEAM_SIZE_MAX, TEAM_SIZE_MIN } from "@/lib/types";
 import type { Team } from "@/lib/types";
 import { Portrait } from "./Portrait";
 
@@ -38,6 +39,17 @@ function configSignature(
 export function TeamsPanel() {
   const { state, dispatch } = useStore();
   const { pools, teams, settings } = state;
+
+  // Same affordance as the pool editor: a new team's name field takes focus so the default label
+  // can be replaced by typing, and only once, so switching focus later is not hijacked.
+  const [focusNameFor, setFocusNameFor] = useState<string | null>(null);
+  const clearFocusName = useCallback(() => setFocusNameFor(null), []);
+
+  function addTeam() {
+    const teamId = newId("team");
+    dispatch({ type: "addTeam", teamId });
+    setFocusNameFor(teamId);
+  }
 
   const [errors, setErrors] = useState<string[]>([]);
   const [generated, setGenerated] = useState<{ signature: string; teams: GeneratedTeam[] } | null>(
@@ -108,7 +120,7 @@ export function TeamsPanel() {
         </button>
 
         <div className="flex items-center gap-2">
-          <button type="button" className={BUTTON} onClick={() => dispatch({ type: "addTeam" })}>
+          <button type="button" className={BUTTON} onClick={addTeam}>
             Add team
           </button>
           <button
@@ -149,6 +161,8 @@ export function TeamsPanel() {
             <TeamCard
               key={team.id}
               team={team}
+              focusName={team.id === focusNameFor}
+              onNameFocused={clearFocusName}
               pools={pools}
               candidateCount={teamCandidates(team, poolsById).length}
               result={visible?.find((entry) => entry.teamId === team.id)?.memberIds ?? null}
@@ -167,30 +181,64 @@ export function TeamsPanel() {
 
 function TeamCard({
   team,
+  focusName,
+  onNameFocused,
   pools,
   candidateCount,
   result,
 }: {
   team: Team;
+  focusName: boolean;
+  onNameFocused: () => void;
   pools: { id: string; name: string; memberIds: string[] }[];
   candidateCount: number;
   result: string[] | null;
 }) {
   const { dispatch } = useStore();
+  const nameRef = useRef<HTMLInputElement>(null);
   const short = candidateCount < team.size;
   const noPools = team.poolIds.length === 0;
 
+  useEffect(() => {
+    if (!focusName) return;
+    const input = nameRef.current;
+    if (input) {
+      input.focus();
+      input.select();
+    }
+    onNameFocused();
+  }, [focusName, onNameFocused]);
+
+  // Blank names are allowed while typing, but a team is never stored without a label.
+  function commitName() {
+    const trimmed = team.name.trim();
+    if (trimmed === team.name) return;
+    dispatch({ type: "renameTeam", teamId: team.id, name: trimmed || DEFAULT_TEAM_NAME });
+  }
+
   return (
     <section className={`${PANEL} flex flex-col gap-3 p-4`}>
-      <header className="flex items-start gap-2">
-        <input
-          value={team.name}
-          onChange={(event) =>
-            dispatch({ type: "renameTeam", teamId: team.id, name: event.target.value })
-          }
-          aria-label="Team name"
-          className="min-w-0 flex-1 rounded-md border border-transparent bg-transparent px-1 py-0.5 text-base font-semibold text-strong hover:border-line focus:border-accent/70 focus:bg-ink focus:outline-none"
-        />
+      <header className="flex items-end gap-2">
+        <label className="flex min-w-0 flex-1 flex-col gap-1">
+          <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted">
+            Team name
+          </span>
+          <input
+            ref={nameRef}
+            value={team.name}
+            onChange={(event) =>
+              dispatch({ type: "renameTeam", teamId: team.id, name: event.target.value })
+            }
+            onBlur={commitName}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") event.currentTarget.blur();
+            }}
+            aria-label="Team name"
+            placeholder="e.g. Abyss first half"
+            maxLength={60}
+            className={`${INPUT} font-semibold`}
+          />
+        </label>
         <div
           className="flex shrink-0 items-center rounded-lg border border-line bg-ink p-0.5"
           role="group"
@@ -216,7 +264,7 @@ function TeamCard({
         </div>
         <button
           type="button"
-          className={BUTTON_GHOST}
+          className={`${BUTTON_GHOST} mb-1`}
           onClick={() => dispatch({ type: "deleteTeam", teamId: team.id })}
           aria-label={`Delete ${team.name}`}
           title="Delete team"

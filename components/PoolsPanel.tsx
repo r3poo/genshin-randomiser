@@ -16,6 +16,7 @@ import {
   INPUT,
   PANEL,
   RARITY_LABEL,
+  RARITY_TEXT,
   plural,
 } from "@/lib/ui";
 import { DEFAULT_POOL_NAME } from "@/lib/types";
@@ -340,7 +341,7 @@ function PoolEditor({
             No characters match the current filters. Turn a filter back on to see the roster.
           </p>
         ) : (
-          <ul className="grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-1.5">
+          <ul className="grid grid-cols-[repeat(auto-fill,10.5rem)] justify-center gap-2">
             {shown.map((character) => {
               const selected = members.has(character.id);
               return (
@@ -350,34 +351,28 @@ function PoolEditor({
                     aria-pressed={selected}
                     onClick={() => toggle(character.id)}
                     title={`${character.name} · ${character.element} ${character.weapon} · ${RARITY_LABEL[character.rarity]}`}
-                    className={`group flex w-full flex-col items-center gap-1 rounded-lg border px-1.5 py-2 transition-colors ${
+                    className={`group flex w-full flex-col gap-1 rounded-xl border p-1.5 leading-tight transition-colors ${
                       selected
-                        ? "border-accent/60 bg-accent/10"
-                        : "border-transparent hover:border-line hover:bg-panel-2"
+                        ? "border-accent/70 bg-accent/10"
+                        : "border-line/60 hover:border-line hover:bg-panel-2"
                     }`}
                   >
-                    <span className="relative">
-                      <Portrait character={character} size="md" showElement={false} />
-                      <span
-                        aria-hidden
-                        className={`absolute -bottom-0.5 -right-0.5 size-3 rounded-full ring-2 ring-panel ${
-                          selected ? "bg-accent" : "bg-transparent"
-                        }`}
-                      />
-                    </span>
+                    <Portrait character={character} size="fill" showElement={false} />
                     <span
-                      className={`w-full truncate text-center text-[11px] ${
+                      className={`w-full truncate text-center text-xs ${
                         selected ? "text-strong" : "text-soft"
                       }`}
                     >
                       {character.name}
                     </span>
-                    <span className="flex items-center gap-1 text-[10px] text-muted">
+                    <span className="flex w-full items-center justify-center gap-1 truncate text-[10px]">
                       <span className={ELEMENT_TEXT[character.element]}>
                         {character.element === "Elementless" ? "—" : character.element}
                       </span>
                       <span className="text-muted/50">·</span>
-                      <span>{RARITY_LABEL[character.rarity]}</span>
+                      <span className={RARITY_TEXT[character.rarity]}>
+                        {RARITY_LABEL[character.rarity]}
+                      </span>
                     </span>
                   </button>
                 </li>
