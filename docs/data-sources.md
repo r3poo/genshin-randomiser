@@ -72,7 +72,7 @@ is dropped.
 Undocumented fan API (successor to ambr). No license statement; treat as a scrape target and
 vendor the output. It is the de-facto community standard and is current, including Nod-Krai.
 
-Roster: `GET https://gi.yatta.moe/api/v2/EN/avatar` → 136 entries with
+Roster: `GET https://gi.yatta.moe/api/v2/EN/avatar?` → 136 entries with
 `rank`, `element`, `weaponType`, `region`, `bodyType`, `icon`, `birthday`, `release`.
 
 Assets (all verified `200`):

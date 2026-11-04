@@ -147,3 +147,9 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+
+
+# assets and data folders
+./public/**
+./data/**

@@ -19,7 +19,7 @@ import path from "node:path";
 const ROOT = path.resolve(import.meta.dirname, "..");
 const DATA = path.join(ROOT, "data", "characters.json");
 const PUBLIC = path.join(ROOT, "public");
-const ROSTER_URL = "https://gi.yatta.moe/api/v2/EN/avatar";
+const ROSTER_URL = "https://gi.yatta.moe/api/v2/EN/avatar?";
 const ASSET_BASE = "https://gi.yatta.moe/assets/UI";
 const CONCURRENCY = 8;
 const FORCE = process.argv.includes("--force");
