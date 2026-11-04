@@ -151,5 +151,5 @@ vite.config.ts.timestamp-*
 
 
 # assets and data folders
-./public/**
-./data/**
+public/
+data/
